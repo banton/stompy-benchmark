@@ -1,0 +1,18 @@
+{
+  "name": "stompy-benchmark-analysis",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "analyze": "tsx src/analyze-tokens.ts",
+    "compare": "tsx src/compare-conditions.ts",
+    "report": "tsx src/aggregate-results.ts",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0"
+  }
+}
