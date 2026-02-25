@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__claude_ai_Stompy__ticket",
+      "mcp__claude_ai_Stompy__recall_context",
+      "Bash(chmod +x:*)",
+      "Bash(bash:*)"
+    ]
+  }
+}
