@@ -1,0 +1,12 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": "anthropic",
+  "model": "claude-opus-4-6",
+  "plugins": {
+    "token-tracker": {
+      "enabled": true,
+      "output": "token-log.jsonl",
+      "format": "jsonl"
+    }
+  }
+}
