@@ -6,6 +6,24 @@ export interface ToolCall {
   args?: Record<string, unknown>;
 }
 
+/**
+ * Claude Code JSON output fields (from --output-format json).
+ * These are the primary token/cost source for the benchmark.
+ */
+export interface ClaudeCodeResult {
+  result: string;
+  input_tokens: number;
+  output_tokens: number;
+  cost_usd: number;
+  duration_ms: number;
+  duration_api_ms: number;
+  num_turns: number;
+  session_id: string;
+  is_error: boolean;
+  // Injected by run-session.sh
+  benchmark_wall_clock_seconds?: number;
+}
+
 export interface SessionMetrics {
   model: string;
   condition: 'stompy' | 'file' | 'nomemory';
@@ -24,6 +42,17 @@ export interface SessionMetrics {
   api_call_count: number;
   first_productive_timestamp: number;
   tool_call_counts: Record<string, number>;
+  // Time/effectiveness metrics (from Claude Code JSON output)
+  duration_ms: number;
+  duration_api_ms: number;
+  num_turns: number;
+  cost_usd: number;
+  is_error: boolean;
+  session_id: string;
+  // Derived effectiveness metrics
+  tokens_per_second: number;
+  time_to_first_productive_seconds: number;
+  points_per_minute: number;
 }
 
 export interface ConditionComparison {
@@ -31,6 +60,11 @@ export interface ConditionComparison {
   session: number;
   conditions: Record<string, SessionMetrics>;
   ramp_up_savings: {
+    stompy_vs_nomemory: number;
+    file_vs_nomemory: number;
+    stompy_vs_file: number;
+  };
+  time_savings: {
     stompy_vs_nomemory: number;
     file_vs_nomemory: number;
     stompy_vs_file: number;
@@ -46,5 +80,8 @@ export interface AggregateReport {
     avg_ramp_up_ratio_by_condition: Record<string, number>;
     avg_cost_by_condition: Record<string, number>;
     avg_productive_ratio_by_condition: Record<string, number>;
+    avg_wall_clock_by_condition: Record<string, number>;
+    avg_tokens_per_second_by_condition: Record<string, number>;
+    avg_points_per_minute_by_condition: Record<string, number>;
   };
 }

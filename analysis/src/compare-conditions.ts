@@ -22,7 +22,7 @@ function parseArgs(argv: string[]): { model: string; session: number; resultsDir
 
   if (!model || !session || !resultsDir) {
     console.error('Usage: compare-conditions --model <model> --session <1|2|3> --results-dir <path>');
-    console.error('  --model        Model name (e.g., claude-opus, gpt-5.1-codex, gemini-2.5-pro)');
+    console.error('  --model        Model name (e.g., claude-opus, claude-sonnet, claude-haiku)');
     console.error('  --session      Session number (1, 2, or 3)');
     console.error('  --results-dir  Path to directory containing SessionMetrics JSON files');
     process.exit(1);
@@ -83,6 +83,10 @@ async function main(): Promise<void> {
   const stompyRampUp = metricsMap['stompy']?.ramp_up_tokens ?? 0;
   const fileRampUp = metricsMap['file']?.ramp_up_tokens ?? 0;
 
+  const nomemoryTime = metricsMap['nomemory']?.wall_clock_seconds ?? 0;
+  const stompyTime = metricsMap['stompy']?.wall_clock_seconds ?? 0;
+  const fileTime = metricsMap['file']?.wall_clock_seconds ?? 0;
+
   const comparison: ConditionComparison = {
     model,
     session,
@@ -91,6 +95,11 @@ async function main(): Promise<void> {
       stompy_vs_nomemory: calcSavingsPercent(nomemoryRampUp, stompyRampUp),
       file_vs_nomemory: calcSavingsPercent(nomemoryRampUp, fileRampUp),
       stompy_vs_file: calcSavingsPercent(fileRampUp, stompyRampUp),
+    },
+    time_savings: {
+      stompy_vs_nomemory: calcSavingsPercent(nomemoryTime, stompyTime),
+      file_vs_nomemory: calcSavingsPercent(nomemoryTime, fileTime),
+      stompy_vs_file: calcSavingsPercent(fileTime, stompyTime),
     },
   };
 

@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # Usage: ./clone-for-run.sh MODEL CONDITION [SESSION_NUM]
-# MODEL: anthropic/claude-opus-4-6, openai/gpt-5.1-codex, google/gemini-2.5-pro
+# MODEL: claude-opus-4-6, claude-sonnet-4-6, claude-haiku-4-5 (Claude Code --model values)
 # CONDITION: stompy, file, nomemory
 # SESSION_NUM: 1, 2, or 3 (default: 1)
 
@@ -14,29 +14,37 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 BASE_DIR="$PROJECT_ROOT/meridian-base"
 
-# Derive short model name for directory
-MODEL_SHORT="${MODEL##*/}"  # e.g., "claude-opus-4-6" from "anthropic/claude-opus-4-6"
+RUN_DIR="$PROJECT_ROOT/runs/${MODEL}-${CONDITION}"
 
-RUN_DIR="$PROJECT_ROOT/runs/${MODEL_SHORT}-${CONDITION}"
+# Validate condition
+case "$CONDITION" in
+  stompy|file|nomemory) ;;
+  *)
+    echo "Error: CONDITION must be stompy, file, or nomemory (got: $CONDITION)"
+    exit 1
+    ;;
+esac
+
+# Validate session
+if [ "$SESSION" -lt 1 ] || [ "$SESSION" -gt 3 ]; then
+  echo "Error: SESSION_NUM must be 1, 2, or 3 (got: $SESSION)"
+  exit 1
+fi
 
 # Determine source directory
 if [ "$SESSION" -eq 1 ]; then
   SOURCE="$BASE_DIR"
-  echo "Session 1: Copying from meridian-base/"
+  echo "Session 1: Copying fresh from meridian-base/"
 elif [ "$SESSION" -le 3 ]; then
-  PREV_SESSION=$((SESSION - 1))
   SOURCE="$RUN_DIR"
   if [ ! -d "$SOURCE/src" ]; then
     echo "Error: Previous session output not found at $SOURCE"
     exit 1
   fi
   echo "Session $SESSION: Building on previous session at $SOURCE"
-else
-  echo "Error: SESSION_NUM must be 1, 2, or 3"
-  exit 1
 fi
 
-# Create run directory
+# Create run directory and copy base files for session 1
 mkdir -p "$RUN_DIR"
 
 if [ "$SESSION" -eq 1 ]; then
@@ -45,44 +53,36 @@ if [ "$SESSION" -eq 1 ]; then
   cp "$SOURCE/.gitignore" "$RUN_DIR/" 2>/dev/null || true
 fi
 
-# Copy appropriate opencode.json
-CONFIG_SRC="$SCRIPT_DIR/${CONDITION}-condition/opencode.json"
-if [ ! -f "$CONFIG_SRC" ]; then
-  echo "Error: Config not found at $CONFIG_SRC"
+# Set up Claude Code config: .claude/settings.local.json
+CLAUDE_DIR="$RUN_DIR/.claude"
+mkdir -p "$CLAUDE_DIR"
+
+SETTINGS_SRC="$SCRIPT_DIR/${CONDITION}-condition/settings.json"
+if [ ! -f "$SETTINGS_SRC" ]; then
+  echo "Error: Settings not found at $SETTINGS_SRC"
   exit 1
 fi
+cp "$SETTINGS_SRC" "$CLAUDE_DIR/settings.local.json"
 
-# Copy config and override model
-cp "$CONFIG_SRC" "$RUN_DIR/opencode.json"
-
-# Update model in config using sed (portable)
-# Map full model name to provider
-case "$MODEL" in
-  anthropic/*)
-    PROVIDER="anthropic"
-    ;;
-  openai/*)
-    PROVIDER="openai"
-    ;;
-  google/*)
-    PROVIDER="google"
-    ;;
-  *)
-    PROVIDER="anthropic"
-    ;;
-esac
-
-# Use a temp file for sed compatibility across platforms
-TMP_FILE=$(mktemp)
-sed "s|\"model\": \"[^\"]*\"|\"model\": \"${MODEL##*/}\"|" "$RUN_DIR/opencode.json" > "$TMP_FILE"
-sed "s|\"provider\": \"[^\"]*\"|\"provider\": \"${PROVIDER}\"|" "$TMP_FILE" > "$RUN_DIR/opencode.json"
-rm "$TMP_FILE"
+# For stompy condition: copy .mcp.json into run directory root
+if [ "$CONDITION" = "stompy" ]; then
+  MCP_SRC="$SCRIPT_DIR/stompy-condition/.mcp.json"
+  if [ ! -f "$MCP_SRC" ]; then
+    echo "Error: .mcp.json not found at $MCP_SRC"
+    exit 1
+  fi
+  cp "$MCP_SRC" "$RUN_DIR/.mcp.json"
+else
+  # Ensure no .mcp.json in non-stompy conditions
+  rm -f "$RUN_DIR/.mcp.json"
+fi
 
 echo ""
 echo "Run directory ready: $RUN_DIR"
 echo "  Model:     $MODEL"
-echo "  Provider:  $PROVIDER"
 echo "  Condition: $CONDITION"
 echo "  Session:   $SESSION"
+echo "  Config:    $CLAUDE_DIR/settings.local.json"
+[ "$CONDITION" = "stompy" ] && echo "  MCP:       $RUN_DIR/.mcp.json"
 echo ""
-echo "Next: cd $RUN_DIR && opencode"
+echo "Next: cd $RUN_DIR && claude -p '...' --model $MODEL"

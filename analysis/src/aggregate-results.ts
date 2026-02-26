@@ -34,7 +34,6 @@ async function loadAllMetrics(resultsDir: string): Promise<SessionMetrics[]> {
     try {
       const content = await readFile(join(resultsDir, file), 'utf-8');
       const metrics = JSON.parse(content) as SessionMetrics;
-      // Basic validation: check required fields exist
       if (metrics.model && metrics.condition && metrics.session) {
         allMetrics.push(metrics);
       } else {
@@ -71,7 +70,6 @@ function calcSavingsPercent(baseline: number, improved: number): number {
 function buildComparisons(allMetrics: SessionMetrics[]): ConditionComparison[] {
   const comparisons: ConditionComparison[] = [];
 
-  // Group by model + session
   const grouped = groupBy(allMetrics, m => `${m.model}|${m.session}`);
 
   for (const [key, metrics] of Object.entries(grouped)) {
@@ -87,6 +85,10 @@ function buildComparisons(allMetrics: SessionMetrics[]): ConditionComparison[] {
     const stompyRampUp = conditionMap['stompy']?.ramp_up_tokens ?? 0;
     const fileRampUp = conditionMap['file']?.ramp_up_tokens ?? 0;
 
+    const nomemoryTime = conditionMap['nomemory']?.wall_clock_seconds ?? 0;
+    const stompyTime = conditionMap['stompy']?.wall_clock_seconds ?? 0;
+    const fileTime = conditionMap['file']?.wall_clock_seconds ?? 0;
+
     comparisons.push({
       model,
       session,
@@ -95,6 +97,11 @@ function buildComparisons(allMetrics: SessionMetrics[]): ConditionComparison[] {
         stompy_vs_nomemory: calcSavingsPercent(nomemoryRampUp, stompyRampUp),
         file_vs_nomemory: calcSavingsPercent(nomemoryRampUp, fileRampUp),
         stompy_vs_file: calcSavingsPercent(fileRampUp, stompyRampUp),
+      },
+      time_savings: {
+        stompy_vs_nomemory: calcSavingsPercent(nomemoryTime, stompyTime),
+        file_vs_nomemory: calcSavingsPercent(nomemoryTime, fileTime),
+        stompy_vs_file: calcSavingsPercent(fileTime, stompyTime),
       },
     });
   }
@@ -111,17 +118,17 @@ function padLeft(str: string, len: number): string {
 }
 
 function printSummaryTable(report: AggregateReport): void {
-  console.log('\n' + '='.repeat(72));
+  console.log('\n' + '='.repeat(90));
   console.log('  STOMPY BENCHMARK - AGGREGATE RESULTS');
-  console.log('='.repeat(72));
+  console.log('='.repeat(90));
   console.log(`  Generated: ${new Date(report.generated_at).toISOString()}`);
   console.log(`  Models: ${report.models.join(', ')}`);
   console.log(`  Sessions analyzed: ${report.sessions_analyzed}`);
   console.log('');
 
-  // Summary table
+  // Summary table with time/effectiveness
   const conditions = Object.keys(report.summary.avg_ramp_up_ratio_by_condition);
-  const header = `  ${padRight('Condition', 12)} | ${padLeft('Avg Ramp-Up Ratio', 18)} | ${padLeft('Avg Cost ($)', 12)} | ${padLeft('Avg Productive %', 16)}`;
+  const header = `  ${padRight('Condition', 12)} | ${padLeft('Ramp-Up %', 10)} | ${padLeft('Cost ($)', 10)} | ${padLeft('Time (s)', 10)} | ${padLeft('Tok/sec', 10)} | ${padLeft('Pts/min', 10)}`;
   const separator = '  ' + '-'.repeat(header.length - 2);
 
   console.log(header);
@@ -130,18 +137,20 @@ function printSummaryTable(report: AggregateReport): void {
   for (const condition of conditions) {
     const rampUp = report.summary.avg_ramp_up_ratio_by_condition[condition] ?? 0;
     const cost = report.summary.avg_cost_by_condition[condition] ?? 0;
-    const productive = report.summary.avg_productive_ratio_by_condition[condition] ?? 0;
+    const time = report.summary.avg_wall_clock_by_condition[condition] ?? 0;
+    const tokPerSec = report.summary.avg_tokens_per_second_by_condition[condition] ?? 0;
+    const ptsPerMin = report.summary.avg_points_per_minute_by_condition[condition] ?? 0;
 
     console.log(
-      `  ${padRight(condition, 12)} | ${padLeft((rampUp * 100).toFixed(2) + '%', 18)} | ${padLeft('$' + cost.toFixed(4), 12)} | ${padLeft((productive * 100).toFixed(2) + '%', 16)}`
+      `  ${padRight(condition, 12)} | ${padLeft((rampUp * 100).toFixed(2) + '%', 10)} | ${padLeft('$' + cost.toFixed(4), 10)} | ${padLeft(time.toFixed(0), 10)} | ${padLeft(tokPerSec.toFixed(1), 10)} | ${padLeft(ptsPerMin.toFixed(2), 10)}`
     );
   }
 
   console.log('');
 
-  // Ramp-up savings summary
+  // Savings summary
   if (report.comparisons.length > 0) {
-    console.log('  Ramp-Up Token Savings (avg across all model-session pairs):');
+    console.log('  Ramp-Up Token Savings:');
     const allStompyVsNomemory: number[] = [];
     const allFileVsNomemory: number[] = [];
     const allStompyVsFile: number[] = [];
@@ -152,18 +161,28 @@ function printSummaryTable(report: AggregateReport): void {
       if (c.ramp_up_savings.stompy_vs_file !== 0) allStompyVsFile.push(c.ramp_up_savings.stompy_vs_file);
     }
 
-    if (allStompyVsNomemory.length > 0) {
-      console.log(`    Stompy vs No-Memory: ${average(allStompyVsNomemory).toFixed(2)}% fewer ramp-up tokens`);
+    if (allStompyVsNomemory.length > 0) console.log(`    Stompy vs No-Memory: ${average(allStompyVsNomemory).toFixed(2)}% fewer ramp-up tokens`);
+    if (allFileVsNomemory.length > 0) console.log(`    File vs No-Memory:   ${average(allFileVsNomemory).toFixed(2)}% fewer ramp-up tokens`);
+    if (allStompyVsFile.length > 0) console.log(`    Stompy vs File:      ${average(allStompyVsFile).toFixed(2)}% fewer ramp-up tokens`);
+
+    console.log('');
+    console.log('  Time Savings:');
+    const timeStompyVsNomemory: number[] = [];
+    const timeFileVsNomemory: number[] = [];
+    const timeStompyVsFile: number[] = [];
+
+    for (const c of report.comparisons) {
+      if (c.time_savings.stompy_vs_nomemory !== 0) timeStompyVsNomemory.push(c.time_savings.stompy_vs_nomemory);
+      if (c.time_savings.file_vs_nomemory !== 0) timeFileVsNomemory.push(c.time_savings.file_vs_nomemory);
+      if (c.time_savings.stompy_vs_file !== 0) timeStompyVsFile.push(c.time_savings.stompy_vs_file);
     }
-    if (allFileVsNomemory.length > 0) {
-      console.log(`    File vs No-Memory:   ${average(allFileVsNomemory).toFixed(2)}% fewer ramp-up tokens`);
-    }
-    if (allStompyVsFile.length > 0) {
-      console.log(`    Stompy vs File:      ${average(allStompyVsFile).toFixed(2)}% fewer ramp-up tokens`);
-    }
+
+    if (timeStompyVsNomemory.length > 0) console.log(`    Stompy vs No-Memory: ${average(timeStompyVsNomemory).toFixed(2)}% faster`);
+    if (timeFileVsNomemory.length > 0) console.log(`    File vs No-Memory:   ${average(timeFileVsNomemory).toFixed(2)}% faster`);
+    if (timeStompyVsFile.length > 0) console.log(`    Stompy vs File:      ${average(timeStompyVsFile).toFixed(2)}% faster`);
   }
 
-  console.log('\n' + '='.repeat(72));
+  console.log('\n' + '='.repeat(90));
 }
 
 async function main(): Promise<void> {
@@ -178,15 +197,20 @@ async function main(): Promise<void> {
   const models = [...new Set(allMetrics.map(m => m.model))].sort();
   const comparisons = buildComparisons(allMetrics);
 
-  // Compute averages by condition
   const byCondition = groupBy(allMetrics, m => m.condition);
   const avgRampUpRatio: Record<string, number> = {};
   const avgCost: Record<string, number> = {};
   const avgProductiveRatio: Record<string, number> = {};
+  const avgWallClock: Record<string, number> = {};
+  const avgTokensPerSecond: Record<string, number> = {};
+  const avgPointsPerMinute: Record<string, number> = {};
 
   for (const [condition, metrics] of Object.entries(byCondition)) {
     avgRampUpRatio[condition] = average(metrics.map(m => m.ramp_up_ratio));
-    avgCost[condition] = average(metrics.map(m => m.estimated_cost));
+    avgCost[condition] = average(metrics.map(m => m.cost_usd || m.estimated_cost));
+    avgWallClock[condition] = average(metrics.map(m => m.wall_clock_seconds));
+    avgTokensPerSecond[condition] = average(metrics.map(m => m.tokens_per_second ?? 0));
+    avgPointsPerMinute[condition] = average(metrics.map(m => m.points_per_minute ?? 0));
 
     const productiveRatios = metrics.map(m => {
       const total = m.total_input_tokens + m.total_output_tokens;
@@ -204,13 +228,16 @@ async function main(): Promise<void> {
       avg_ramp_up_ratio_by_condition: avgRampUpRatio,
       avg_cost_by_condition: avgCost,
       avg_productive_ratio_by_condition: avgProductiveRatio,
+      avg_wall_clock_by_condition: avgWallClock,
+      avg_tokens_per_second_by_condition: avgTokensPerSecond,
+      avg_points_per_minute_by_condition: avgPointsPerMinute,
     },
   };
 
   // Output JSON to stdout
   console.log(JSON.stringify(report, null, 2));
 
-  // Print human-readable summary to stderr so JSON output remains clean
+  // Print human-readable summary to stderr
   const originalLog = console.log;
   console.log = (...args) => process.stderr.write(args.join(' ') + '\n');
   printSummaryTable(report);
