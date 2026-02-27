@@ -23,9 +23,9 @@ RUN_DIR="$PROJECT_ROOT/runs/p2-${MODEL}-${CONDITION}/task${TASK_NUM}"
 
 # Validate inputs
 case "$CONDITION" in
-  stompy|file|nomemory) ;;
+  stompy|stompy-staging|file|nomemory) ;;
   *)
-    echo "Error: CONDITION must be stompy, file, or nomemory (got: $CONDITION)"
+    echo "Error: CONDITION must be stompy, stompy-staging, file, or nomemory (got: $CONDITION)"
     exit 1
     ;;
 esac
@@ -66,16 +66,20 @@ CLAUDE_DIR="$RUN_DIR/.claude"
 mkdir -p "$CLAUDE_DIR"
 
 # Settings — use condition-specific settings (reuse from Phase 1)
-SETTINGS_SRC="$CONFIGS_DIR/${CONDITION}-condition/settings.json"
+# stompy-staging uses same settings as stompy
+SETTINGS_CONDITION="$CONDITION"
+SETTINGS_SRC="$CONFIGS_DIR/${SETTINGS_CONDITION}-condition/settings.json"
 if [ ! -f "$SETTINGS_SRC" ]; then
   echo "Error: Settings not found at $SETTINGS_SRC"
   exit 1
 fi
 cp "$SETTINGS_SRC" "$CLAUDE_DIR/settings.local.json"
 
-# Stompy condition: inject .mcp.json
-if [ "$CONDITION" = "stompy" ]; then
-  MCP_SRC="$CONFIGS_DIR/stompy-condition/.mcp.json"
+# Stompy conditions: inject .mcp.json
+if [ "$CONDITION" = "stompy" ] || [ "$CONDITION" = "stompy-staging" ]; then
+  MCP_SRC="$CONFIGS_DIR/${CONDITION}-condition/.mcp.json"
+  # Fall back to stompy-condition for stompy
+  [ "$CONDITION" = "stompy" ] && MCP_SRC="$CONFIGS_DIR/stompy-condition/.mcp.json"
   if [ ! -f "$MCP_SRC" ]; then
     echo "Error: .mcp.json not found at $MCP_SRC"
     exit 1
@@ -112,14 +116,14 @@ echo "  Model:     $MODEL"
 echo "  Condition: $CONDITION"
 echo "  Task:      $TASK_NUM"
 echo "  Config:    $CLAUDE_DIR/settings.local.json"
-[ "$CONDITION" = "stompy" ] && echo "  MCP:       $RUN_DIR/.mcp.json"
+[[ "$CONDITION" == stompy* ]] && echo "  MCP:       $RUN_DIR/.mcp.json"
 [ "$CONDITION" = "file" ] && echo "  Memory:    $RUN_DIR/MEMORY.md + $RUN_DIR/TASKS.md"
 echo ""
 
 # Neutrality verification
 echo "Neutrality checks:"
-[ "$CONDITION" = "stompy" ] && echo "  ✓ .mcp.json injected for Stompy MCP access"
-[ "$CONDITION" != "stompy" ] && echo "  ✓ No .mcp.json — Stompy MCP NOT available"
+[[ "$CONDITION" == stompy* ]] && echo "  ✓ .mcp.json injected for Stompy MCP access ($CONDITION)"
+[[ "$CONDITION" != stompy* ]] && echo "  ✓ No .mcp.json — Stompy MCP NOT available"
 [ "$CONDITION" = "file" ] && echo "  ✓ MEMORY.md + TASKS.md injected"
 [ "$CONDITION" != "file" ] && echo "  ✓ No MEMORY.md/TASKS.md"
 echo "  ✓ Fresh snapshot copy (no state from other runs)"

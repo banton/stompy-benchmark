@@ -69,22 +69,25 @@ RESULTS_DIR="$RUN_DIR"
 # ─── Validate inputs ───────────────────────────────────────────────
 
 case "$CONDITION" in
-  stompy|file|nomemory) ;;
+  stompy|stompy-staging|file|nomemory) ;;
   *)
-    echo "Error: CONDITION must be stompy, file, or nomemory"
+    echo "Error: CONDITION must be stompy, stompy-staging, file, or nomemory"
     exit 1
     ;;
 esac
 
-if [ "$CONDITION" = "stompy" ] && [ -z "${DEMENTIA_API_KEY:-}" ]; then
-  echo "Error: DEMENTIA_API_KEY required for stompy condition"
+if [[ "$CONDITION" == stompy* ]] && [ -z "${DEMENTIA_API_KEY:-}" ]; then
+  echo "Error: DEMENTIA_API_KEY required for stompy conditions"
   echo "  source ~/Sites/stompy/dementia-production/.env"
   exit 1
 fi
 
 # ─── Select prompt file ────────────────────────────────────────────
 
-PROMPT_FILE="$PROMPTS_DIR/task${TASK_NUM}-${CONDITION}.md"
+# stompy-staging uses the stompy prompt (same MCP recall instructions)
+PROMPT_CONDITION="$CONDITION"
+[[ "$CONDITION" == stompy-staging ]] && PROMPT_CONDITION="stompy"
+PROMPT_FILE="$PROMPTS_DIR/task${TASK_NUM}-${PROMPT_CONDITION}.md"
 
 if [ ! -f "$PROMPT_FILE" ]; then
   echo "Error: Prompt file not found: $PROMPT_FILE"
@@ -130,8 +133,8 @@ if [ "$DRY_RUN" = "--dry-run" ]; then
   echo "  ✓ --no-session-persistence prevents session bleed"
   echo "  ✓ --max-turns=$MAX_TURNS, --max-budget-usd=$MAX_BUDGET"
   echo "  ✓ Fresh snapshot copy for this run"
-  [ "$CONDITION" = "stompy" ] && echo "  ✓ .mcp.json present for Stompy MCP access"
-  [ "$CONDITION" != "stompy" ] && echo "  ✓ No .mcp.json — Stompy MCP NOT available"
+  [[ "$CONDITION" == stompy* ]] && echo "  ✓ .mcp.json present for Stompy MCP access ($CONDITION)"
+  [[ "$CONDITION" != stompy* ]] && echo "  ✓ No .mcp.json — Stompy MCP NOT available"
   [ "$CONDITION" = "file" ] && echo "  ✓ MEMORY.md + TASKS.md injected"
   [ "$CONDITION" != "file" ] && echo "  ✓ No MEMORY.md/TASKS.md"
   echo "  ✓ No memory write phase (memory is pre-loaded)"

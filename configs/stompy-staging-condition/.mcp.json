@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "stompy": {
+      "type": "http",
+      "url": "https://mcp-staging.stompy.ai/mcp",
+      "headers": {
+        "Authorization": "Bearer ${DEMENTIA_API_KEY}"
+      }
+    }
+  }
+}
