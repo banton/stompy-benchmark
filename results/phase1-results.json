@@ -1,0 +1,2009 @@
+{
+  "generated_at": 1772145402,
+  "total_duration_seconds": 3949,
+  "total_runs": 9,
+  "passed": 9,
+  "failed": 0,
+  "sessions": [
+    {
+      "model": "claude-opus-4-6",
+      "condition": "file",
+      "session": 1,
+      "wall_clock_seconds": 233,
+      "total_score": 16,
+      "total_max": 37,
+      "score_pct": 43.24,
+      "points_per_minute": 4.1202,
+      "functional": {
+        "score": 11,
+        "max": 25,
+        "checks": [
+          {
+            "check": "index.ts exists",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "routes file exists",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "auth middleware exists",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "service file exists",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "mrd_shipments table",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "mrd_events table",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "mrd_hubs table",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "mrd_shipment_legs table",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "hubs endpoint returns ok:true",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "shipments returns meta.total",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "ts field uses epoch ms",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "401 on no token",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "token validation logic",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "expiry check",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "DRAFT to MANIFESTED transition",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "dispatcher role check",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "terminal state enforcement",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "creates event on transition",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "POST legs endpoint",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "PATCH leg transition",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "GET includes legs",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "status derives from legs",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "npm test script exists",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "more than 10 test cases",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "integration test exists",
+            "points": 1,
+            "passed": true
+          }
+        ]
+      },
+      "consistency": {
+        "score": 4,
+        "max": 6,
+        "checks": [
+          {
+            "check": "response wrapper consistent",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "ID format consistent",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "file naming consistent",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "test setup consistent",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "error handling consistent",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "DB connection consistent",
+            "points": 1,
+            "passed": true
+          }
+        ]
+      },
+      "curveball": {
+        "score": 1,
+        "max": 6,
+        "checks": [
+          {
+            "check": "mrd_ prefix on legs table",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "MRD- prefix on leg IDs",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "auth on leg endpoints",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "response wrapper on leg endpoints",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "existing tests preserved",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "backward compat maintained",
+            "points": 0,
+            "passed": false
+          }
+        ]
+      },
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0,
+      "duration_ms": 229067,
+      "num_turns": 41,
+      "session_id": "1fc03b18-7ee0-45b2-8da5-0561c573f8c2",
+      "score_file": "/Users/banton/Sites/stompy/stompy-benchmark/runs/claude-opus-4-6-file/session-1-scores.json"
+    },
+    {
+      "model": "claude-opus-4-6",
+      "condition": "file",
+      "session": 2,
+      "wall_clock_seconds": 378,
+      "total_score": 22,
+      "total_max": 37,
+      "score_pct": 59.46,
+      "points_per_minute": 3.4921,
+      "functional": {
+        "score": 17,
+        "max": 25,
+        "checks": [
+          {
+            "check": "index.ts exists",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "routes file exists",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "auth middleware exists",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "service file exists",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "mrd_shipments table",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "mrd_events table",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "mrd_hubs table",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "mrd_shipment_legs table",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "hubs endpoint returns ok:true",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "shipments returns meta.total",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "ts field uses epoch ms",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "401 on no token",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "token validation logic",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "expiry check",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "DRAFT to MANIFESTED transition",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "dispatcher role check",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "terminal state enforcement",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "creates event on transition",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "POST legs endpoint",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "PATCH leg transition",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "GET includes legs",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "status derives from legs",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "npm test script exists",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "more than 10 test cases",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "integration test exists",
+            "points": 1,
+            "passed": true
+          }
+        ]
+      },
+      "consistency": {
+        "score": 4,
+        "max": 6,
+        "checks": [
+          {
+            "check": "response wrapper consistent",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "ID format consistent",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "file naming consistent",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "test setup consistent",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "error handling consistent",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "DB connection consistent",
+            "points": 1,
+            "passed": true
+          }
+        ]
+      },
+      "curveball": {
+        "score": 1,
+        "max": 6,
+        "checks": [
+          {
+            "check": "mrd_ prefix on legs table",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "MRD- prefix on leg IDs",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "auth on leg endpoints",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "response wrapper on leg endpoints",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "existing tests preserved",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "backward compat maintained",
+            "points": 0,
+            "passed": false
+          }
+        ]
+      },
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0,
+      "duration_ms": 373711,
+      "num_turns": 50,
+      "session_id": "03186b63-b0bd-4430-b5fd-2257087cdefd",
+      "score_file": "/Users/banton/Sites/stompy/stompy-benchmark/runs/claude-opus-4-6-file/session-2-scores.json"
+    },
+    {
+      "model": "claude-opus-4-6",
+      "condition": "file",
+      "session": 3,
+      "wall_clock_seconds": 342,
+      "total_score": 28,
+      "total_max": 37,
+      "score_pct": 75.68,
+      "points_per_minute": 4.9123,
+      "functional": {
+        "score": 22,
+        "max": 25,
+        "checks": [
+          {
+            "check": "index.ts exists",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "routes file exists",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "auth middleware exists",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "service file exists",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "mrd_shipments table",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "mrd_events table",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "mrd_hubs table",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "mrd_shipment_legs table",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "hubs endpoint returns ok:true",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "shipments returns meta.total",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "ts field uses epoch ms",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "401 on no token",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "token validation logic",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "expiry check",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "DRAFT to MANIFESTED transition",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "dispatcher role check",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "terminal state enforcement",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "creates event on transition",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "POST legs endpoint",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "PATCH leg transition",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "GET includes legs",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "status derives from legs",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "npm test script exists",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "more than 10 test cases",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "integration test exists",
+            "points": 1,
+            "passed": true
+          }
+        ]
+      },
+      "consistency": {
+        "score": 4,
+        "max": 6,
+        "checks": [
+          {
+            "check": "response wrapper consistent",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "ID format consistent",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "file naming consistent",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "test setup consistent",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "error handling consistent",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "DB connection consistent",
+            "points": 1,
+            "passed": true
+          }
+        ]
+      },
+      "curveball": {
+        "score": 2,
+        "max": 6,
+        "checks": [
+          {
+            "check": "mrd_ prefix on legs table",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "MRD- prefix on leg IDs",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "auth on leg endpoints",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "response wrapper on leg endpoints",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "existing tests preserved",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "backward compat maintained",
+            "points": 0,
+            "passed": false
+          }
+        ]
+      },
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0,
+      "duration_ms": 338281,
+      "num_turns": 59,
+      "session_id": "d4fea2f2-a7ce-4838-9a54-e55771461391",
+      "score_file": "/Users/banton/Sites/stompy/stompy-benchmark/runs/claude-opus-4-6-file/session-3-scores.json"
+    },
+    {
+      "model": "claude-opus-4-6",
+      "condition": "nomemory",
+      "session": 1,
+      "wall_clock_seconds": 245,
+      "total_score": 20,
+      "total_max": 37,
+      "score_pct": 54.05,
+      "points_per_minute": 4.898,
+      "functional": {
+        "score": 13,
+        "max": 25,
+        "checks": [
+          {
+            "check": "index.ts exists",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "routes file exists",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "auth middleware exists",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "service file exists",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "mrd_shipments table",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "mrd_events table",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "mrd_hubs table",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "mrd_shipment_legs table",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "hubs endpoint returns ok:true",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "shipments returns meta.total",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "ts field uses epoch ms",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "401 on no token",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "token validation logic",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "expiry check",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "DRAFT to MANIFESTED transition",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "dispatcher role check",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "terminal state enforcement",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "creates event on transition",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "POST legs endpoint",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "PATCH leg transition",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "GET includes legs",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "status derives from legs",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "npm test script exists",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "more than 10 test cases",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "integration test exists",
+            "points": 1,
+            "passed": true
+          }
+        ]
+      },
+      "consistency": {
+        "score": 5,
+        "max": 6,
+        "checks": [
+          {
+            "check": "response wrapper consistent",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "ID format consistent",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "file naming consistent",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "test setup consistent",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "error handling consistent",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "DB connection consistent",
+            "points": 1,
+            "passed": true
+          }
+        ]
+      },
+      "curveball": {
+        "score": 2,
+        "max": 6,
+        "checks": [
+          {
+            "check": "mrd_ prefix on legs table",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "MRD- prefix on leg IDs",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "auth on leg endpoints",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "response wrapper on leg endpoints",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "existing tests preserved",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "backward compat maintained",
+            "points": 1,
+            "passed": true
+          }
+        ]
+      },
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0,
+      "duration_ms": 239803,
+      "num_turns": 36,
+      "session_id": "8a01302a-0ce1-435b-b209-87bccf1e18f0",
+      "score_file": "/Users/banton/Sites/stompy/stompy-benchmark/runs/claude-opus-4-6-nomemory/session-1-scores.json"
+    },
+    {
+      "model": "claude-opus-4-6",
+      "condition": "nomemory",
+      "session": 2,
+      "wall_clock_seconds": 298,
+      "total_score": 26,
+      "total_max": 37,
+      "score_pct": 70.27,
+      "points_per_minute": 5.2349,
+      "functional": {
+        "score": 19,
+        "max": 25,
+        "checks": [
+          {
+            "check": "index.ts exists",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "routes file exists",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "auth middleware exists",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "service file exists",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "mrd_shipments table",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "mrd_events table",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "mrd_hubs table",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "mrd_shipment_legs table",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "hubs endpoint returns ok:true",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "shipments returns meta.total",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "ts field uses epoch ms",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "401 on no token",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "token validation logic",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "expiry check",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "DRAFT to MANIFESTED transition",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "dispatcher role check",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "terminal state enforcement",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "creates event on transition",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "POST legs endpoint",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "PATCH leg transition",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "GET includes legs",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "status derives from legs",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "npm test script exists",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "more than 10 test cases",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "integration test exists",
+            "points": 1,
+            "passed": true
+          }
+        ]
+      },
+      "consistency": {
+        "score": 5,
+        "max": 6,
+        "checks": [
+          {
+            "check": "response wrapper consistent",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "ID format consistent",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "file naming consistent",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "test setup consistent",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "error handling consistent",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "DB connection consistent",
+            "points": 1,
+            "passed": true
+          }
+        ]
+      },
+      "curveball": {
+        "score": 2,
+        "max": 6,
+        "checks": [
+          {
+            "check": "mrd_ prefix on legs table",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "MRD- prefix on leg IDs",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "auth on leg endpoints",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "response wrapper on leg endpoints",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "existing tests preserved",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "backward compat maintained",
+            "points": 1,
+            "passed": true
+          }
+        ]
+      },
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0,
+      "duration_ms": 294263,
+      "num_turns": 49,
+      "session_id": "c8e142eb-768f-4b7d-b8b8-6aba519aeab3",
+      "score_file": "/Users/banton/Sites/stompy/stompy-benchmark/runs/claude-opus-4-6-nomemory/session-2-scores.json"
+    },
+    {
+      "model": "claude-opus-4-6",
+      "condition": "nomemory",
+      "session": 3,
+      "wall_clock_seconds": 272,
+      "total_score": 32,
+      "total_max": 37,
+      "score_pct": 86.49,
+      "points_per_minute": 7.0588,
+      "functional": {
+        "score": 24,
+        "max": 25,
+        "checks": [
+          {
+            "check": "index.ts exists",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "routes file exists",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "auth middleware exists",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "service file exists",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "mrd_shipments table",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "mrd_events table",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "mrd_hubs table",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "mrd_shipment_legs table",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "hubs endpoint returns ok:true",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "shipments returns meta.total",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "ts field uses epoch ms",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "401 on no token",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "token validation logic",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "expiry check",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "DRAFT to MANIFESTED transition",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "dispatcher role check",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "terminal state enforcement",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "creates event on transition",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "POST legs endpoint",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "PATCH leg transition",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "GET includes legs",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "status derives from legs",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "npm test script exists",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "more than 10 test cases",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "integration test exists",
+            "points": 1,
+            "passed": true
+          }
+        ]
+      },
+      "consistency": {
+        "score": 5,
+        "max": 6,
+        "checks": [
+          {
+            "check": "response wrapper consistent",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "ID format consistent",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "file naming consistent",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "test setup consistent",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "error handling consistent",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "DB connection consistent",
+            "points": 1,
+            "passed": true
+          }
+        ]
+      },
+      "curveball": {
+        "score": 3,
+        "max": 6,
+        "checks": [
+          {
+            "check": "mrd_ prefix on legs table",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "MRD- prefix on leg IDs",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "auth on leg endpoints",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "response wrapper on leg endpoints",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "existing tests preserved",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "backward compat maintained",
+            "points": 1,
+            "passed": true
+          }
+        ]
+      },
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0,
+      "duration_ms": 254158,
+      "num_turns": 53,
+      "session_id": "6792d385-e6ae-4246-91a2-3dd6c6cc55e1",
+      "score_file": "/Users/banton/Sites/stompy/stompy-benchmark/runs/claude-opus-4-6-nomemory/session-3-scores.json"
+    },
+    {
+      "model": "claude-opus-4-6",
+      "condition": "stompy",
+      "session": 1,
+      "wall_clock_seconds": 250,
+      "total_score": 16,
+      "total_max": 37,
+      "score_pct": 43.24,
+      "points_per_minute": 3.84,
+      "functional": {
+        "score": 11,
+        "max": 25,
+        "checks": [
+          {
+            "check": "index.ts exists",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "routes file exists",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "auth middleware exists",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "service file exists",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "mrd_shipments table",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "mrd_events table",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "mrd_hubs table",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "mrd_shipment_legs table",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "hubs endpoint returns ok:true",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "shipments returns meta.total",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "ts field uses epoch ms",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "401 on no token",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "token validation logic",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "expiry check",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "DRAFT to MANIFESTED transition",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "dispatcher role check",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "terminal state enforcement",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "creates event on transition",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "POST legs endpoint",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "PATCH leg transition",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "GET includes legs",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "status derives from legs",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "npm test script exists",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "more than 10 test cases",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "integration test exists",
+            "points": 1,
+            "passed": true
+          }
+        ]
+      },
+      "consistency": {
+        "score": 4,
+        "max": 6,
+        "checks": [
+          {
+            "check": "response wrapper consistent",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "ID format consistent",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "file naming consistent",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "test setup consistent",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "error handling consistent",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "DB connection consistent",
+            "points": 1,
+            "passed": true
+          }
+        ]
+      },
+      "curveball": {
+        "score": 1,
+        "max": 6,
+        "checks": [
+          {
+            "check": "mrd_ prefix on legs table",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "MRD- prefix on leg IDs",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "auth on leg endpoints",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "response wrapper on leg endpoints",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "existing tests preserved",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "backward compat maintained",
+            "points": 0,
+            "passed": false
+          }
+        ]
+      },
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0,
+      "duration_ms": 240193,
+      "num_turns": 37,
+      "session_id": "cb17dab1-d652-4562-ae8f-f187b2588a1d",
+      "score_file": "/Users/banton/Sites/stompy/stompy-benchmark/runs/claude-opus-4-6-stompy/session-1-scores.json"
+    },
+    {
+      "model": "claude-opus-4-6",
+      "condition": "stompy",
+      "session": 2,
+      "wall_clock_seconds": 562,
+      "total_score": 22,
+      "total_max": 37,
+      "score_pct": 59.46,
+      "points_per_minute": 2.3488,
+      "functional": {
+        "score": 17,
+        "max": 25,
+        "checks": [
+          {
+            "check": "index.ts exists",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "routes file exists",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "auth middleware exists",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "service file exists",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "mrd_shipments table",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "mrd_events table",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "mrd_hubs table",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "mrd_shipment_legs table",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "hubs endpoint returns ok:true",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "shipments returns meta.total",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "ts field uses epoch ms",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "401 on no token",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "token validation logic",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "expiry check",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "DRAFT to MANIFESTED transition",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "dispatcher role check",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "terminal state enforcement",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "creates event on transition",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "POST legs endpoint",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "PATCH leg transition",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "GET includes legs",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "status derives from legs",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "npm test script exists",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "more than 10 test cases",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "integration test exists",
+            "points": 1,
+            "passed": true
+          }
+        ]
+      },
+      "consistency": {
+        "score": 4,
+        "max": 6,
+        "checks": [
+          {
+            "check": "response wrapper consistent",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "ID format consistent",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "file naming consistent",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "test setup consistent",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "error handling consistent",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "DB connection consistent",
+            "points": 1,
+            "passed": true
+          }
+        ]
+      },
+      "curveball": {
+        "score": 1,
+        "max": 6,
+        "checks": [
+          {
+            "check": "mrd_ prefix on legs table",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "MRD- prefix on leg IDs",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "auth on leg endpoints",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "response wrapper on leg endpoints",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "existing tests preserved",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "backward compat maintained",
+            "points": 0,
+            "passed": false
+          }
+        ]
+      },
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0,
+      "duration_ms": 532078,
+      "num_turns": 76,
+      "session_id": "9e595caa-2174-4580-9108-556cf3c875fa",
+      "score_file": "/Users/banton/Sites/stompy/stompy-benchmark/runs/claude-opus-4-6-stompy/session-2-scores.json"
+    },
+    {
+      "model": "claude-opus-4-6",
+      "condition": "stompy",
+      "session": 3,
+      "wall_clock_seconds": 316,
+      "total_score": 28,
+      "total_max": 37,
+      "score_pct": 75.68,
+      "points_per_minute": 5.3165,
+      "functional": {
+        "score": 22,
+        "max": 25,
+        "checks": [
+          {
+            "check": "index.ts exists",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "routes file exists",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "auth middleware exists",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "service file exists",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "mrd_shipments table",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "mrd_events table",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "mrd_hubs table",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "mrd_shipment_legs table",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "hubs endpoint returns ok:true",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "shipments returns meta.total",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "ts field uses epoch ms",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "401 on no token",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "token validation logic",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "expiry check",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "DRAFT to MANIFESTED transition",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "dispatcher role check",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "terminal state enforcement",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "creates event on transition",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "POST legs endpoint",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "PATCH leg transition",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "GET includes legs",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "status derives from legs",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "npm test script exists",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "more than 10 test cases",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "integration test exists",
+            "points": 1,
+            "passed": true
+          }
+        ]
+      },
+      "consistency": {
+        "score": 4,
+        "max": 6,
+        "checks": [
+          {
+            "check": "response wrapper consistent",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "ID format consistent",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "file naming consistent",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "test setup consistent",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "error handling consistent",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "DB connection consistent",
+            "points": 1,
+            "passed": true
+          }
+        ]
+      },
+      "curveball": {
+        "score": 2,
+        "max": 6,
+        "checks": [
+          {
+            "check": "mrd_ prefix on legs table",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "MRD- prefix on leg IDs",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "auth on leg endpoints",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "response wrapper on leg endpoints",
+            "points": 0,
+            "passed": false
+          },
+          {
+            "check": "existing tests preserved",
+            "points": 1,
+            "passed": true
+          },
+          {
+            "check": "backward compat maintained",
+            "points": 0,
+            "passed": false
+          }
+        ]
+      },
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0,
+      "duration_ms": 310286,
+      "num_turns": 53,
+      "session_id": "62a93329-65be-474a-86c7-48b9f280139c",
+      "score_file": "/Users/banton/Sites/stompy/stompy-benchmark/runs/claude-opus-4-6-stompy/session-3-scores.json"
+    }
+  ],
+  "effectiveness_by_condition": {
+    "file": {
+      "avg_score_pct": 59.46,
+      "avg_wall_clock_seconds": 317.6667,
+      "avg_cost_usd": 0.0,
+      "avg_points_per_minute": 4.1749
+    },
+    "nomemory": {
+      "avg_score_pct": 70.27,
+      "avg_wall_clock_seconds": 271.6667,
+      "avg_cost_usd": 0.0,
+      "avg_points_per_minute": 5.7306
+    },
+    "stompy": {
+      "avg_score_pct": 59.46,
+      "avg_wall_clock_seconds": 376.0,
+      "avg_cost_usd": 0.0,
+      "avg_points_per_minute": 3.8351
+    }
+  }
+}

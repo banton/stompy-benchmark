@@ -1,0 +1,188 @@
+{
+  "generated_at": "2026-02-27T00:00:00Z",
+  "phase": 2,
+  "model": "claude-opus-4-6",
+  "total_runs": 9,
+  "passed": 9,
+  "failed": 0,
+  "codebase": "dementia-production (4895-line Python/FastAPI/PostgreSQL MCP server)",
+  "sessions": [
+    {
+      "condition": "stompy",
+      "task_num": 1,
+      "task_name": "project_delete_preview",
+      "score": 23,
+      "max": 25,
+      "score_pct": 92.0,
+      "wall_clock_seconds": 368,
+      "num_turns": 31,
+      "cost_usd": 1.78,
+      "points_per_minute": 3.75
+    },
+    {
+      "condition": "file",
+      "task_num": 1,
+      "task_name": "project_delete_preview",
+      "score": 23,
+      "max": 25,
+      "score_pct": 92.0,
+      "wall_clock_seconds": 372,
+      "num_turns": 40,
+      "cost_usd": 2.86,
+      "points_per_minute": 3.71
+    },
+    {
+      "condition": "nomemory",
+      "task_num": 1,
+      "task_name": "project_delete_preview",
+      "score": 22,
+      "max": 25,
+      "score_pct": 88.0,
+      "wall_clock_seconds": 216,
+      "num_turns": 23,
+      "cost_usd": 1.48,
+      "points_per_minute": 6.11
+    },
+    {
+      "condition": "stompy",
+      "task_num": 2,
+      "task_name": "service_extraction",
+      "score": 21,
+      "max": 25,
+      "score_pct": 84.0,
+      "wall_clock_seconds": 391,
+      "num_turns": 45,
+      "cost_usd": 3.18,
+      "points_per_minute": 3.22
+    },
+    {
+      "condition": "file",
+      "task_num": 2,
+      "task_name": "service_extraction",
+      "score": 21,
+      "max": 25,
+      "score_pct": 84.0,
+      "wall_clock_seconds": 412,
+      "num_turns": 50,
+      "cost_usd": 3.39,
+      "points_per_minute": 3.06
+    },
+    {
+      "condition": "nomemory",
+      "task_num": 2,
+      "task_name": "service_extraction",
+      "score": 21,
+      "max": 25,
+      "score_pct": 84.0,
+      "wall_clock_seconds": 438,
+      "num_turns": 63,
+      "cost_usd": 4.08,
+      "points_per_minute": 2.88
+    },
+    {
+      "condition": "stompy",
+      "task_num": 3,
+      "task_name": "rate_limiting",
+      "score": 23,
+      "max": 25,
+      "score_pct": 92.0,
+      "wall_clock_seconds": 207,
+      "num_turns": 37,
+      "cost_usd": 1.79,
+      "points_per_minute": 6.67
+    },
+    {
+      "condition": "file",
+      "task_num": 3,
+      "task_name": "rate_limiting",
+      "score": 24,
+      "max": 25,
+      "score_pct": 96.0,
+      "wall_clock_seconds": 238,
+      "num_turns": 34,
+      "cost_usd": 1.93,
+      "points_per_minute": 6.05
+    },
+    {
+      "condition": "nomemory",
+      "task_num": 3,
+      "task_name": "rate_limiting",
+      "score": 24,
+      "max": 25,
+      "score_pct": 96.0,
+      "wall_clock_seconds": 304,
+      "num_turns": 45,
+      "cost_usd": 2.30,
+      "points_per_minute": 4.74
+    }
+  ],
+  "effectiveness_by_condition": {
+    "stompy": {
+      "total_score": 67,
+      "total_max": 75,
+      "avg_score_pct": 89.3,
+      "total_cost_usd": 6.75,
+      "total_turns": 113,
+      "total_wall_clock_seconds": 966,
+      "avg_points_per_minute": 4.55
+    },
+    "file": {
+      "total_score": 68,
+      "total_max": 75,
+      "avg_score_pct": 90.7,
+      "total_cost_usd": 8.18,
+      "total_turns": 124,
+      "total_wall_clock_seconds": 1022,
+      "avg_points_per_minute": 4.27
+    },
+    "nomemory": {
+      "total_score": 67,
+      "total_max": 75,
+      "avg_score_pct": 89.3,
+      "total_cost_usd": 7.86,
+      "total_turns": 131,
+      "total_wall_clock_seconds": 958,
+      "avg_points_per_minute": 4.58
+    }
+  },
+  "effectiveness_by_task": {
+    "task1_project_delete_preview": {
+      "stompy": {"score": 23, "pct": 92.0, "time": 368, "turns": 31, "cost": 1.78},
+      "file": {"score": 23, "pct": 92.0, "time": 372, "turns": 40, "cost": 2.86},
+      "nomemory": {"score": 22, "pct": 88.0, "time": 216, "turns": 23, "cost": 1.48}
+    },
+    "task2_service_extraction": {
+      "stompy": {"score": 21, "pct": 84.0, "time": 391, "turns": 45, "cost": 3.18},
+      "file": {"score": 21, "pct": 84.0, "time": 412, "turns": 50, "cost": 3.39},
+      "nomemory": {"score": 21, "pct": 84.0, "time": 438, "turns": 63, "cost": 4.08}
+    },
+    "task3_rate_limiting": {
+      "stompy": {"score": 23, "pct": 92.0, "time": 207, "turns": 37, "cost": 1.79},
+      "file": {"score": 24, "pct": 96.0, "time": 238, "turns": 34, "cost": 1.93},
+      "nomemory": {"score": 24, "pct": 96.0, "time": 304, "turns": 45, "cost": 2.30}
+    }
+  },
+  "analysis": {
+    "hypothesis_results": {
+      "stompy_lower_ramp_up": "PARTIALLY CONFIRMED — Stompy used fewer turns on Task 2 (45 vs 63 nomemory, 28% savings) and was fastest on Task 3 (207s vs 304s, 32% faster). Task 1 showed no advantage.",
+      "file_competitive_simple_degrades_complex": "NOT CONFIRMED — File condition performed well across all tasks, scoring highest overall (68/75). No degradation observed on complex tasks.",
+      "nomemory_higher_ramp_up_cost": "CONFIRMED for Tasks 2-3 — Nomemory consistently required most turns (63 on Task 2, 45 on Task 3) and highest cost. Paradoxically fastest on Task 1.",
+      "points_per_minute_favors_stompy_increasingly": "PARTIALLY CONFIRMED — Task 2 showed clear stompy > file > nomemory ordering. Task 3 strongly favored stompy (6.67 pts/min). Task 1 was inverse."
+    },
+    "key_findings": [
+      "Quality ceiling is identical — all conditions achieve 84-96% scores. Memory doesn't improve correctness.",
+      "Efficiency gradient emerges on complex tasks — stompy saves 28-32% of turns/time on Tasks 2-3.",
+      "File condition has best total score (68/75) but highest cost ($8.18).",
+      "Nomemory is cheapest overall ($7.86) but least efficient on complex tasks.",
+      "Stompy is cheapest ($6.75) despite having memory overhead — the efficiency savings outweigh MCP call costs.",
+      "Task 1 was too simple to differentiate — nomemory won on speed despite lower score.",
+      "All three conditions failed the same checks on Task 2 (error handling, DB mocks, error coverage) — suggesting a systematic scoring issue, not a memory advantage."
+    ],
+    "cost_efficiency": {
+      "stompy_cost_per_point": 0.101,
+      "file_cost_per_point": 0.120,
+      "nomemory_cost_per_point": 0.117,
+      "winner": "stompy (16% cheaper per point than file)"
+    }
+  }
+}

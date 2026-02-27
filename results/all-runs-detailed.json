@@ -1,0 +1,2328 @@
+{
+  "phase1": [
+    {
+      "condition": "file",
+      "session": 1,
+      "wall_clock_seconds": 233,
+      "num_turns": 41,
+      "cost_usd": 1.35,
+      "score": 16,
+      "max": 37,
+      "score_pct": 43.24,
+      "points_per_minute": 4.1202,
+      "checks": [
+        {
+          "check": "index.ts exists",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "routes file exists",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "auth middleware exists",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "service file exists",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "mrd_shipments table",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "mrd_events table",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "mrd_hubs table",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "mrd_shipment_legs table",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "hubs endpoint returns ok:true",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "shipments returns meta.total",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "ts field uses epoch ms",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "401 on no token",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "token validation logic",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "expiry check",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "DRAFT to MANIFESTED transition",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "dispatcher role check",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "terminal state enforcement",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "creates event on transition",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "POST legs endpoint",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "PATCH leg transition",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "GET includes legs",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "status derives from legs",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "npm test script exists",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "more than 10 test cases",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "integration test exists",
+          "points": 1,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "condition": "file",
+      "session": 2,
+      "wall_clock_seconds": 378,
+      "num_turns": 50,
+      "cost_usd": 2.26,
+      "score": 22,
+      "max": 37,
+      "score_pct": 59.46,
+      "points_per_minute": 3.4921,
+      "checks": [
+        {
+          "check": "index.ts exists",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "routes file exists",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "auth middleware exists",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "service file exists",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "mrd_shipments table",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "mrd_events table",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "mrd_hubs table",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "mrd_shipment_legs table",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "hubs endpoint returns ok:true",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "shipments returns meta.total",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "ts field uses epoch ms",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "401 on no token",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "token validation logic",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "expiry check",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "DRAFT to MANIFESTED transition",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "dispatcher role check",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "terminal state enforcement",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "creates event on transition",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "POST legs endpoint",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "PATCH leg transition",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "GET includes legs",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "status derives from legs",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "npm test script exists",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "more than 10 test cases",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "integration test exists",
+          "points": 1,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "condition": "file",
+      "session": 3,
+      "wall_clock_seconds": 342,
+      "num_turns": 59,
+      "cost_usd": 2.53,
+      "score": 28,
+      "max": 37,
+      "score_pct": 75.68,
+      "points_per_minute": 4.9123,
+      "checks": [
+        {
+          "check": "index.ts exists",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "routes file exists",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "auth middleware exists",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "service file exists",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "mrd_shipments table",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "mrd_events table",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "mrd_hubs table",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "mrd_shipment_legs table",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "hubs endpoint returns ok:true",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "shipments returns meta.total",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "ts field uses epoch ms",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "401 on no token",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "token validation logic",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "expiry check",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "DRAFT to MANIFESTED transition",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "dispatcher role check",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "terminal state enforcement",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "creates event on transition",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "POST legs endpoint",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "PATCH leg transition",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "GET includes legs",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "status derives from legs",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "npm test script exists",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "more than 10 test cases",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "integration test exists",
+          "points": 1,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "condition": "nomemory",
+      "session": 1,
+      "wall_clock_seconds": 245,
+      "num_turns": 36,
+      "cost_usd": 1.2,
+      "score": 20,
+      "max": 37,
+      "score_pct": 54.05,
+      "points_per_minute": 4.898,
+      "checks": [
+        {
+          "check": "index.ts exists",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "routes file exists",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "auth middleware exists",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "service file exists",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "mrd_shipments table",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "mrd_events table",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "mrd_hubs table",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "mrd_shipment_legs table",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "hubs endpoint returns ok:true",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "shipments returns meta.total",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "ts field uses epoch ms",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "401 on no token",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "token validation logic",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "expiry check",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "DRAFT to MANIFESTED transition",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "dispatcher role check",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "terminal state enforcement",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "creates event on transition",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "POST legs endpoint",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "PATCH leg transition",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "GET includes legs",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "status derives from legs",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "npm test script exists",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "more than 10 test cases",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "integration test exists",
+          "points": 1,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "condition": "nomemory",
+      "session": 2,
+      "wall_clock_seconds": 298,
+      "num_turns": 49,
+      "cost_usd": 2.04,
+      "score": 26,
+      "max": 37,
+      "score_pct": 70.27,
+      "points_per_minute": 5.2349,
+      "checks": [
+        {
+          "check": "index.ts exists",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "routes file exists",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "auth middleware exists",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "service file exists",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "mrd_shipments table",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "mrd_events table",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "mrd_hubs table",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "mrd_shipment_legs table",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "hubs endpoint returns ok:true",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "shipments returns meta.total",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "ts field uses epoch ms",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "401 on no token",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "token validation logic",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "expiry check",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "DRAFT to MANIFESTED transition",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "dispatcher role check",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "terminal state enforcement",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "creates event on transition",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "POST legs endpoint",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "PATCH leg transition",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "GET includes legs",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "status derives from legs",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "npm test script exists",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "more than 10 test cases",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "integration test exists",
+          "points": 1,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "condition": "nomemory",
+      "session": 3,
+      "wall_clock_seconds": 272,
+      "num_turns": 53,
+      "cost_usd": 1.86,
+      "score": 32,
+      "max": 37,
+      "score_pct": 86.49,
+      "points_per_minute": 7.0588,
+      "checks": [
+        {
+          "check": "index.ts exists",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "routes file exists",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "auth middleware exists",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "service file exists",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "mrd_shipments table",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "mrd_events table",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "mrd_hubs table",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "mrd_shipment_legs table",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "hubs endpoint returns ok:true",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "shipments returns meta.total",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "ts field uses epoch ms",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "401 on no token",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "token validation logic",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "expiry check",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "DRAFT to MANIFESTED transition",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "dispatcher role check",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "terminal state enforcement",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "creates event on transition",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "POST legs endpoint",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "PATCH leg transition",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "GET includes legs",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "status derives from legs",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "npm test script exists",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "more than 10 test cases",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "integration test exists",
+          "points": 1,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "condition": "stompy",
+      "session": 1,
+      "wall_clock_seconds": 250,
+      "num_turns": 37,
+      "cost_usd": 1.18,
+      "score": 16,
+      "max": 37,
+      "score_pct": 43.24,
+      "points_per_minute": 3.84,
+      "checks": [
+        {
+          "check": "index.ts exists",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "routes file exists",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "auth middleware exists",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "service file exists",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "mrd_shipments table",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "mrd_events table",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "mrd_hubs table",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "mrd_shipment_legs table",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "hubs endpoint returns ok:true",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "shipments returns meta.total",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "ts field uses epoch ms",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "401 on no token",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "token validation logic",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "expiry check",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "DRAFT to MANIFESTED transition",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "dispatcher role check",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "terminal state enforcement",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "creates event on transition",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "POST legs endpoint",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "PATCH leg transition",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "GET includes legs",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "status derives from legs",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "npm test script exists",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "more than 10 test cases",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "integration test exists",
+          "points": 1,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "condition": "stompy",
+      "session": 2,
+      "wall_clock_seconds": 562,
+      "num_turns": 76,
+      "cost_usd": 3.52,
+      "score": 22,
+      "max": 37,
+      "score_pct": 59.46,
+      "points_per_minute": 2.3488,
+      "checks": [
+        {
+          "check": "index.ts exists",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "routes file exists",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "auth middleware exists",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "service file exists",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "mrd_shipments table",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "mrd_events table",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "mrd_hubs table",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "mrd_shipment_legs table",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "hubs endpoint returns ok:true",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "shipments returns meta.total",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "ts field uses epoch ms",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "401 on no token",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "token validation logic",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "expiry check",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "DRAFT to MANIFESTED transition",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "dispatcher role check",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "terminal state enforcement",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "creates event on transition",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "POST legs endpoint",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "PATCH leg transition",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "GET includes legs",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "status derives from legs",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "npm test script exists",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "more than 10 test cases",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "integration test exists",
+          "points": 1,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "condition": "stompy",
+      "session": 3,
+      "wall_clock_seconds": 316,
+      "num_turns": 53,
+      "cost_usd": 1.89,
+      "score": 28,
+      "max": 37,
+      "score_pct": 75.68,
+      "points_per_minute": 5.3165,
+      "checks": [
+        {
+          "check": "index.ts exists",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "routes file exists",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "auth middleware exists",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "service file exists",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "mrd_shipments table",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "mrd_events table",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "mrd_hubs table",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "mrd_shipment_legs table",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "hubs endpoint returns ok:true",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "shipments returns meta.total",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "ts field uses epoch ms",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "401 on no token",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "token validation logic",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "expiry check",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "DRAFT to MANIFESTED transition",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "dispatcher role check",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "terminal state enforcement",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "creates event on transition",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "POST legs endpoint",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "PATCH leg transition",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "GET includes legs",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "status derives from legs",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "npm test script exists",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "more than 10 test cases",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "integration test exists",
+          "points": 1,
+          "passed": true
+        }
+      ]
+    }
+  ],
+  "phase2": [
+    {
+      "condition": "file",
+      "task_num": 1,
+      "task_name": "project_delete_preview",
+      "wall_clock_seconds": 372,
+      "num_turns": 40,
+      "cost_usd": 2.86,
+      "score": 23,
+      "max": 25,
+      "score_pct": 92.0,
+      "points_per_minute": 3.7097,
+      "checks": [
+        {
+          "check": "project_delete tool modified",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "count/preview method in service",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "test file exists",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "python syntax valid",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "no new non-test dependencies",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "counts contexts",
+          "points": 2,
+          "passed": true
+        },
+        {
+          "check": "counts memories",
+          "points": 2,
+          "passed": true
+        },
+        {
+          "check": "counts tickets",
+          "points": 2,
+          "passed": true
+        },
+        {
+          "check": "counts files",
+          "points": 2,
+          "passed": true
+        },
+        {
+          "check": "returns counts in preview response",
+          "points": 2,
+          "passed": true
+        },
+        {
+          "check": "more than 3 test functions",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "tests happy path",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "tests empty project",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "tests error case",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "uses mock/patch for DB",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "confirm=true still deletes",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "backward compatible signature",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "no circular imports (AST parses)",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "uses existing DB patterns",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "logging preserved",
+          "points": 1,
+          "passed": true
+        }
+      ],
+      "token_usage": {
+        "input": 52,
+        "cache_read": 2551027,
+        "cache_write": 67738,
+        "output": 15374
+      }
+    },
+    {
+      "condition": "file",
+      "task_num": 2,
+      "task_name": "service_extraction",
+      "wall_clock_seconds": 412,
+      "num_turns": 50,
+      "cost_usd": 3.39,
+      "score": 21,
+      "max": 25,
+      "score_pct": 84.0,
+      "points_per_minute": 3.0583,
+      "checks": [
+        {
+          "check": "context_explore_service.py exists",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "context_dashboard_service.py exists",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "stompy_server.py reduced in size",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "follows naming convention",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "python syntax valid for new files",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "context_explore logic moved to service",
+          "points": 2,
+          "passed": true
+        },
+        {
+          "check": "context_dashboard logic moved to service",
+          "points": 2,
+          "passed": true
+        },
+        {
+          "check": "service uses proper class/function structure",
+          "points": 2,
+          "passed": true
+        },
+        {
+          "check": "DB queries in service not server",
+          "points": 2,
+          "passed": true
+        },
+        {
+          "check": "error handling preserved",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "test file for explore service exists",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "test file for dashboard service exists",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "more than 5 total test functions",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "mocks DB layer",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "tests cover main methods and errors",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "stompy_server imports new services",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "MCP tool registration preserved",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "no circular imports (AST parses)",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "logging preserved in services",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "service follows existing patterns",
+          "points": 1,
+          "passed": true
+        }
+      ],
+      "token_usage": {
+        "input": 50,
+        "cache_read": 4142890,
+        "cache_write": 103747,
+        "output": 26224
+      }
+    },
+    {
+      "condition": "file",
+      "task_num": 3,
+      "task_name": "rate_limiting",
+      "wall_clock_seconds": 238,
+      "num_turns": 34,
+      "cost_usd": 1.93,
+      "score": 24,
+      "max": 25,
+      "score_pct": 96.0,
+      "points_per_minute": 6.0504,
+      "checks": [
+        {
+          "check": "rate_limit.py modified",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "account route file exists",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "config externalized",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "python syntax valid",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "no hardcoded secrets",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "age-based tier calculation",
+          "points": 2,
+          "passed": true
+        },
+        {
+          "check": "Redis counters for rate limiting",
+          "points": 2,
+          "passed": true
+        },
+        {
+          "check": "per-account limits",
+          "points": 2,
+          "passed": true
+        },
+        {
+          "check": "usage endpoint",
+          "points": 2,
+          "passed": true
+        },
+        {
+          "check": "admin tier bypass",
+          "points": 2,
+          "passed": true
+        },
+        {
+          "check": "test file exists for rate limiting",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "more than 5 test functions",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "mocks Redis",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "tests tier transitions",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "tests usage endpoint",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "existing rate limits still work",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "new endpoint requires auth",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "Redis fallback handling",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "config uses environment vars",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "middleware registered properly",
+          "points": 1,
+          "passed": true
+        }
+      ],
+      "token_usage": {
+        "input": 34,
+        "cache_read": 2087840,
+        "cache_write": 76322,
+        "output": 16212
+      }
+    },
+    {
+      "condition": "nomemory",
+      "task_num": 1,
+      "task_name": "project_delete_preview",
+      "wall_clock_seconds": 216,
+      "num_turns": 23,
+      "cost_usd": 1.48,
+      "score": 22,
+      "max": 25,
+      "score_pct": 88.0,
+      "points_per_minute": 6.1111,
+      "checks": [
+        {
+          "check": "project_delete tool modified",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "count/preview method in service",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "test file exists",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "python syntax valid",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "no new non-test dependencies",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "counts contexts",
+          "points": 2,
+          "passed": true
+        },
+        {
+          "check": "counts memories",
+          "points": 2,
+          "passed": true
+        },
+        {
+          "check": "counts tickets",
+          "points": 2,
+          "passed": true
+        },
+        {
+          "check": "counts files",
+          "points": 2,
+          "passed": true
+        },
+        {
+          "check": "returns counts in preview response",
+          "points": 2,
+          "passed": true
+        },
+        {
+          "check": "more than 3 test functions",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "tests happy path",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "tests empty project",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "tests error case",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "uses mock/patch for DB",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "confirm=true still deletes",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "backward compatible signature",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "no circular imports (AST parses)",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "uses existing DB patterns",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "logging preserved",
+          "points": 1,
+          "passed": true
+        }
+      ],
+      "token_usage": {
+        "input": 36,
+        "cache_read": 1071583,
+        "cache_write": 58486,
+        "output": 8068
+      }
+    },
+    {
+      "condition": "nomemory",
+      "task_num": 2,
+      "task_name": "service_extraction",
+      "wall_clock_seconds": 438,
+      "num_turns": 63,
+      "cost_usd": 4.08,
+      "score": 21,
+      "max": 25,
+      "score_pct": 84.0,
+      "points_per_minute": 2.8767,
+      "checks": [
+        {
+          "check": "context_explore_service.py exists",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "context_dashboard_service.py exists",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "stompy_server.py reduced in size",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "follows naming convention",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "python syntax valid for new files",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "context_explore logic moved to service",
+          "points": 2,
+          "passed": true
+        },
+        {
+          "check": "context_dashboard logic moved to service",
+          "points": 2,
+          "passed": true
+        },
+        {
+          "check": "service uses proper class/function structure",
+          "points": 2,
+          "passed": true
+        },
+        {
+          "check": "DB queries in service not server",
+          "points": 2,
+          "passed": true
+        },
+        {
+          "check": "error handling preserved",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "test file for explore service exists",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "test file for dashboard service exists",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "more than 5 total test functions",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "mocks DB layer",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "tests cover main methods and errors",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "stompy_server imports new services",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "MCP tool registration preserved",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "no circular imports (AST parses)",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "logging preserved in services",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "service follows existing patterns",
+          "points": 1,
+          "passed": true
+        }
+      ],
+      "token_usage": {
+        "input": 62,
+        "cache_read": 5279004,
+        "cache_write": 114313,
+        "output": 28385
+      }
+    },
+    {
+      "condition": "nomemory",
+      "task_num": 3,
+      "task_name": "rate_limiting",
+      "wall_clock_seconds": 304,
+      "num_turns": 45,
+      "cost_usd": 2.3,
+      "score": 24,
+      "max": 25,
+      "score_pct": 96.0,
+      "points_per_minute": 4.7368,
+      "checks": [
+        {
+          "check": "rate_limit.py modified",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "account route file exists",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "config externalized",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "python syntax valid",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "no hardcoded secrets",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "age-based tier calculation",
+          "points": 2,
+          "passed": true
+        },
+        {
+          "check": "Redis counters for rate limiting",
+          "points": 2,
+          "passed": true
+        },
+        {
+          "check": "per-account limits",
+          "points": 2,
+          "passed": true
+        },
+        {
+          "check": "usage endpoint",
+          "points": 2,
+          "passed": true
+        },
+        {
+          "check": "admin tier bypass",
+          "points": 2,
+          "passed": true
+        },
+        {
+          "check": "test file exists for rate limiting",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "more than 5 test functions",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "mocks Redis",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "tests tier transitions",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "tests usage endpoint",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "existing rate limits still work",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "new endpoint requires auth",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "Redis fallback handling",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "config uses environment vars",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "middleware registered properly",
+          "points": 1,
+          "passed": true
+        }
+      ],
+      "token_usage": {
+        "input": 41,
+        "cache_read": 2594936,
+        "cache_write": 77973,
+        "output": 20205
+      }
+    },
+    {
+      "condition": "stompy",
+      "task_num": 1,
+      "task_name": "project_delete_preview",
+      "wall_clock_seconds": 368,
+      "num_turns": 31,
+      "cost_usd": 1.78,
+      "score": 23,
+      "max": 25,
+      "score_pct": 92.0,
+      "points_per_minute": 3.75,
+      "checks": [
+        {
+          "check": "project_delete tool modified",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "count/preview method in service",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "test file exists",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "python syntax valid",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "no new non-test dependencies",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "counts contexts",
+          "points": 2,
+          "passed": true
+        },
+        {
+          "check": "counts memories",
+          "points": 2,
+          "passed": true
+        },
+        {
+          "check": "counts tickets",
+          "points": 2,
+          "passed": true
+        },
+        {
+          "check": "counts files",
+          "points": 2,
+          "passed": true
+        },
+        {
+          "check": "returns counts in preview response",
+          "points": 2,
+          "passed": true
+        },
+        {
+          "check": "more than 3 test functions",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "tests happy path",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "tests empty project",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "tests error case",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "uses mock/patch for DB",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "confirm=true still deletes",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "backward compatible signature",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "no circular imports (AST parses)",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "uses existing DB patterns",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "logging preserved",
+          "points": 1,
+          "passed": true
+        }
+      ],
+      "token_usage": {
+        "input": 76,
+        "cache_read": 1372466,
+        "cache_write": 79989,
+        "output": 8768
+      }
+    },
+    {
+      "condition": "stompy",
+      "task_num": 2,
+      "task_name": "service_extraction",
+      "wall_clock_seconds": 391,
+      "num_turns": 45,
+      "cost_usd": 3.18,
+      "score": 21,
+      "max": 25,
+      "score_pct": 84.0,
+      "points_per_minute": 3.2225,
+      "checks": [
+        {
+          "check": "context_explore_service.py exists",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "context_dashboard_service.py exists",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "stompy_server.py reduced in size",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "follows naming convention",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "python syntax valid for new files",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "context_explore logic moved to service",
+          "points": 2,
+          "passed": true
+        },
+        {
+          "check": "context_dashboard logic moved to service",
+          "points": 2,
+          "passed": true
+        },
+        {
+          "check": "service uses proper class/function structure",
+          "points": 2,
+          "passed": true
+        },
+        {
+          "check": "DB queries in service not server",
+          "points": 2,
+          "passed": true
+        },
+        {
+          "check": "error handling preserved",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "test file for explore service exists",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "test file for dashboard service exists",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "more than 5 total test functions",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "mocks DB layer",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "tests cover main methods and errors",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "stompy_server imports new services",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "MCP tool registration preserved",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "no circular imports (AST parses)",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "logging preserved in services",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "service follows existing patterns",
+          "points": 1,
+          "passed": true
+        }
+      ],
+      "token_usage": {
+        "input": 63,
+        "cache_read": 3474640,
+        "cache_write": 95011,
+        "output": 23646
+      }
+    },
+    {
+      "condition": "stompy",
+      "task_num": 3,
+      "task_name": "rate_limiting",
+      "wall_clock_seconds": 207,
+      "num_turns": 37,
+      "cost_usd": 1.79,
+      "score": 23,
+      "max": 25,
+      "score_pct": 92.0,
+      "points_per_minute": 6.6667,
+      "checks": [
+        {
+          "check": "rate_limit.py modified",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "account route file exists",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "config externalized",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "python syntax valid",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "no hardcoded secrets",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "age-based tier calculation",
+          "points": 2,
+          "passed": true
+        },
+        {
+          "check": "Redis counters for rate limiting",
+          "points": 2,
+          "passed": true
+        },
+        {
+          "check": "per-account limits",
+          "points": 2,
+          "passed": true
+        },
+        {
+          "check": "usage endpoint",
+          "points": 2,
+          "passed": true
+        },
+        {
+          "check": "admin tier bypass",
+          "points": 2,
+          "passed": true
+        },
+        {
+          "check": "test file exists for rate limiting",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "more than 5 test functions",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "mocks Redis",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "tests tier transitions",
+          "points": 0,
+          "passed": false
+        },
+        {
+          "check": "tests usage endpoint",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "existing rate limits still work",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "new endpoint requires auth",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "Redis fallback handling",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "config uses environment vars",
+          "points": 1,
+          "passed": true
+        },
+        {
+          "check": "middleware registered properly",
+          "points": 1,
+          "passed": true
+        }
+      ],
+      "token_usage": {
+        "input": 42,
+        "cache_read": 1899876,
+        "cache_write": 70451,
+        "output": 12920
+      }
+    }
+  ]
+}
