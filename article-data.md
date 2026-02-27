@@ -545,15 +545,54 @@ Based on 18 controlled benchmark runs:
 
 ---
 
-## 14. Future Work: TOON Format
+## 14. TOON vs JSON Format Comparison (Actual Results)
 
-The current benchmark tested Stompy's JSON-based context format. A **TOON (Terse Object-Oriented Notation)** variant is now available on Stompy Staging that may reduce token consumption for context storage and retrieval.
+We ran Task 3 (rate limiting — the most complex scenario) against Stompy Staging with **TOON (Terse Object-Oriented Notation)** enabled, comparing directly against the JSON-format Stompy run.
 
-**Hypothesis**: TOON's more compact serialization could reduce the token overhead of MCP recall calls, further widening Stompy's efficiency advantage — particularly on complex tasks (Task 3) where multiple contexts are recalled.
+### Head-to-Head Results
 
-**Planned test**: Run Task 3 (rate limiting — the most complex scenario) with TOON-enabled Stompy to measure the token consumption delta vs JSON format. Since cache_read tokens account for 94-97% of all token usage, even a modest reduction in context serialization size could meaningfully reduce cost.
+| Metric | Stompy (JSON) | Stompy (TOON) | Delta |
+|--------|--------------|---------------|-------|
+| Score | 23/25 (92%) | **24/25 (96%)** | +1 pt (+4%) |
+| Time | **207s** | 335s | +62% slower |
+| Total Cost | **$1.79** | $2.91 | +63% more |
+| Turns | 37 | 36 | ~same |
+| Pts/min | **6.67** | 4.30 | -36% |
 
-**Why this matters for the projections**: At 10,000 sessions with 7,000 contexts, every byte saved per context recall multiplies across thousands of retrievals. TOON could shift the Stompy cost curve even flatter.
+### Token Breakdown (Opus — primary model)
+
+| Metric | JSON | TOON | Delta |
+|--------|------|------|-------|
+| Cache read | 1,899,876 | 1,852,501 | -2.5% (modest win) |
+| Cache write | 70,451 | 175,988 | +150% (more context cached) |
+| Output | 12,920 | 15,317 | +19% (more output generated) |
+| Opus cost | $1.72 | $2.41 | +40% |
+
+### Token Breakdown (Haiku — subcalls)
+
+| Metric | JSON | TOON | Delta |
+|--------|------|------|-------|
+| Cache read | 568,925 | 2,724,069 | **+379%** |
+| Cache write | 37,682 | 141,398 | +275% |
+| Haiku cost | $0.074 | $0.502 | **+578%** |
+
+### Scoring Differences
+
+Both runs failed only "tests tier transitions." TOON passed "config externalized" which JSON missed — that's the +1 point.
+
+### Analysis
+
+**Quality**: TOON scored marginally higher (96% vs 92%), but this is within noise — one extra check passed, likely due to natural variance in code generation rather than TOON-specific benefit.
+
+**The Haiku Surprise**: The 7x increase in Haiku subcall cost ($0.074 → $0.502) was unexpected. TOON contexts appear to trigger significantly more/larger Haiku summarization passes within Claude Code's internal pipeline. Haiku cache reads jumped from 569K to 2.7M tokens — suggesting TOON payloads may actually be *larger* than JSON despite the "Terse" name, or the format triggers more aggressive sub-agent processing.
+
+**Opus Cache Reads**: A modest 2.5% reduction in Opus cache reads (1.9M → 1.85M) — directionally correct but overwhelmed by the Haiku cost explosion.
+
+**Net Assessment**: TOON v1 on staging is not yet a cost win. The format change needs optimization to reduce Haiku subcall overhead before it can deliver on the promise of token-efficient context retrieval. The quality improvement is statistically insignificant at N=1.
+
+### Implications for Projections
+
+At 10,000 sessions, TOON in its current form would *increase* cumulative cost vs JSON Stompy. The format needs to reduce Haiku summarization triggers (or bypass them) to achieve the expected savings. This is a staging/v1 result — production TOON may behave differently after optimization.
 
 ---
 

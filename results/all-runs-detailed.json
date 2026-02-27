@@ -2323,6 +2323,51 @@
         "cache_write": 70451,
         "output": 12920
       }
+    },
+    {
+      "condition": "stompy-staging (TOON)",
+      "task_num": 3,
+      "task_name": "rate_limiting",
+      "wall_clock_seconds": 335,
+      "num_turns": 36,
+      "cost_usd": 2.91,
+      "score": 24,
+      "max": 25,
+      "score_pct": 96.0,
+      "points_per_minute": 4.2985,
+      "checks": [
+        { "check": "rate_limit.py modified", "points": 1, "passed": true },
+        { "check": "account route file exists", "points": 1, "passed": true },
+        { "check": "config externalized", "points": 1, "passed": true },
+        { "check": "python syntax valid", "points": 1, "passed": true },
+        { "check": "no hardcoded secrets", "points": 1, "passed": true },
+        { "check": "age-based tier calculation", "points": 2, "passed": true },
+        { "check": "Redis counters for rate limiting", "points": 2, "passed": true },
+        { "check": "per-account limits", "points": 2, "passed": true },
+        { "check": "usage endpoint", "points": 2, "passed": true },
+        { "check": "admin tier bypass", "points": 2, "passed": true },
+        { "check": "test file exists for rate limiting", "points": 1, "passed": true },
+        { "check": "more than 5 test functions", "points": 1, "passed": true },
+        { "check": "mocks Redis", "points": 1, "passed": true },
+        { "check": "tests tier transitions", "points": 0, "passed": false },
+        { "check": "tests usage endpoint", "points": 1, "passed": true },
+        { "check": "existing rate limits still work", "points": 1, "passed": true },
+        { "check": "new endpoint requires auth", "points": 1, "passed": true },
+        { "check": "Redis fallback handling", "points": 1, "passed": true },
+        { "check": "config uses environment vars", "points": 1, "passed": true },
+        { "check": "middleware registered properly", "points": 1, "passed": true }
+      ],
+      "token_usage": {
+        "input": 43,
+        "cache_read": 1852501,
+        "cache_write": 175988,
+        "output": 15317,
+        "haiku_cache_read": 2724069,
+        "haiku_cache_write": 141398,
+        "haiku_output": 7190,
+        "opus_cost_usd": 2.41,
+        "haiku_cost_usd": 0.50
+      }
     }
   ]
 }
