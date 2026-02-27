@@ -4,7 +4,7 @@
       "type": "sse",
       "url": "https://api.stompy.ai/mcp/sse",
       "headers": {
-        "Authorization": "Bearer ${STOMPY_API_KEY}"
+        "Authorization": "Bearer ${DEMENTIA_API_KEY}"
       }
     }
   }

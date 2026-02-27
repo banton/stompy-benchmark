@@ -139,14 +139,16 @@ async function main(): Promise<void> {
     process.exit(1);
   }
 
-  const totalInput = ccResult.input_tokens ?? 0;
-  const totalOutput = ccResult.output_tokens ?? 0;
+  // Claude Code nests tokens under usage{} and modelUsage{}
+  const usage = ccResult.usage ?? { input_tokens: 0, output_tokens: 0, cache_creation_input_tokens: 0, cache_read_input_tokens: 0 };
+  const totalInput = usage.input_tokens + (usage.cache_creation_input_tokens ?? 0) + (usage.cache_read_input_tokens ?? 0);
+  const totalOutput = usage.output_tokens;
   const totalTokens = totalInput + totalOutput;
   const durationMs = ccResult.duration_ms ?? 0;
   const wallClockSeconds = ccResult.benchmark_wall_clock_seconds ?? (durationMs / 1000);
 
-  // Prefer Claude Code's cost_usd; fall back to rate estimation
-  const costUsd = ccResult.cost_usd ?? estimateCost(model, totalInput, totalOutput);
+  // Prefer Claude Code's total_cost_usd; fall back to rate estimation
+  const costUsd = ccResult.total_cost_usd ?? estimateCost(model, totalInput, totalOutput);
 
   // ─── Secondary source: token-log.jsonl for per-tool granularity ──
 

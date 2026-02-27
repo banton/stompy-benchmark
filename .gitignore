@@ -1,6 +1,7 @@
 node_modules/
 dist/
 runs/
+dementia-snapshot/
 *.db
 .env
 .env.*

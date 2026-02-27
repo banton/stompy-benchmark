@@ -1,39 +1,70 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Usage: ./run-session.sh MODEL CONDITION SESSION_NUM [--dry-run]
+# Usage: ./run-session-p2.sh MODEL CONDITION TASK_NUM [--dry-run]
 #
-# Runs a single benchmark session via Claude Code headless mode.
+# Runs a single Phase 2 benchmark session via Claude Code headless mode.
+#
+# Phase 2 differs from Phase 1:
+#   - Tasks are independent (not sequential) — each starts from fresh snapshot
+#   - No memory write phase (memory is pre-loaded)
+#   - Per-task budget/turns/timeout scaling
+#   - Python codebase (dementia-production) instead of TypeScript (meridian)
 #
 # MODEL:       Claude Code --model value (e.g., claude-opus-4-6)
 # CONDITION:   stompy, file, nomemory
-# SESSION_NUM: 1, 2, or 3
+# TASK_NUM:    1, 2, or 3
 #
 # Environment:
-#   STOMPY_API_KEY  — required for stompy condition
-#   MAX_TURNS       — override max turns (default: 200)
-#   MAX_BUDGET      — override max budget USD (default: 10)
-#   TIMEOUT         — override timeout in seconds (default: 1800 = 30min)
+#   DEMENTIA_API_KEY — required for stompy condition
+#   MAX_TURNS_OVERRIDE — override max turns
+#   MAX_BUDGET_OVERRIDE — override max budget USD
+#   TIMEOUT_OVERRIDE    — override timeout in seconds
 
-MODEL="${1:?Usage: $0 MODEL CONDITION SESSION_NUM [--dry-run]}"
-CONDITION="${2:?Usage: $0 MODEL CONDITION SESSION_NUM [--dry-run]}"
-SESSION="${3:?Usage: $0 MODEL CONDITION SESSION_NUM [--dry-run]}"
+MODEL="${1:?Usage: $0 MODEL CONDITION TASK_NUM [--dry-run]}"
+CONDITION="${2:?Usage: $0 MODEL CONDITION TASK_NUM [--dry-run]}"
+TASK_NUM="${3:?Usage: $0 MODEL CONDITION TASK_NUM [--dry-run]}"
 DRY_RUN="${4:-}"
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PROJECT_ROOT="$SCRIPT_DIR"
 CONFIGS_DIR="$PROJECT_ROOT/configs"
-PROMPTS_DIR="$PROJECT_ROOT/prompts"
-SCORING_DIR="$PROJECT_ROOT/scoring"
+PROMPTS_DIR="$PROJECT_ROOT/prompts/phase2"
+SCORING_DIR="$PROJECT_ROOT/scoring/phase2"
 
-MAX_TURNS="${MAX_TURNS:-200}"
-MAX_BUDGET="${MAX_BUDGET:-10}"
-TIMEOUT="${TIMEOUT:-1800}"
+# ─── Per-task scaling ──────────────────────────────────────────────────
 
-RUN_DIR="$PROJECT_ROOT/runs/${MODEL}-${CONDITION}"
+case "$TASK_NUM" in
+  1)
+    DEFAULT_TURNS=250
+    DEFAULT_BUDGET=15
+    DEFAULT_TIMEOUT=1800   # 30 min
+    TASK_NAME="project_delete_preview"
+    ;;
+  2)
+    DEFAULT_TURNS=300
+    DEFAULT_BUDGET=20
+    DEFAULT_TIMEOUT=2700   # 45 min
+    TASK_NAME="service_extraction"
+    ;;
+  3)
+    DEFAULT_TURNS=400
+    DEFAULT_BUDGET=25
+    DEFAULT_TIMEOUT=3600   # 60 min
+    TASK_NAME="rate_limiting"
+    ;;
+  *)
+    echo "Error: TASK_NUM must be 1, 2, or 3"
+    exit 1
+    ;;
+esac
+
+MAX_TURNS="${MAX_TURNS_OVERRIDE:-$DEFAULT_TURNS}"
+MAX_BUDGET="${MAX_BUDGET_OVERRIDE:-$DEFAULT_BUDGET}"
+TIMEOUT="${TIMEOUT_OVERRIDE:-$DEFAULT_TIMEOUT}"
+
+RUN_DIR="$PROJECT_ROOT/runs/p2-${MODEL}-${CONDITION}/task${TASK_NUM}"
 RESULTS_DIR="$RUN_DIR"
-
-ALLOWED_TOOLS="Read,Write,Edit,Bash,Glob,Grep,ExitPlanMode,EnterPlanMode,NotebookEdit"
 
 # ─── Validate inputs ───────────────────────────────────────────────
 
@@ -45,11 +76,6 @@ case "$CONDITION" in
     ;;
 esac
 
-if [ "$SESSION" -lt 1 ] || [ "$SESSION" -gt 3 ]; then
-  echo "Error: SESSION_NUM must be 1, 2, or 3"
-  exit 1
-fi
-
 if [ "$CONDITION" = "stompy" ] && [ -z "${DEMENTIA_API_KEY:-}" ]; then
   echo "Error: DEMENTIA_API_KEY required for stompy condition"
   echo "  source ~/Sites/stompy/dementia-production/.env"
@@ -58,72 +84,32 @@ fi
 
 # ─── Select prompt file ────────────────────────────────────────────
 
-select_prompt() {
-  local session="$1"
-  local condition="$2"
-
-  case "$session" in
-    1)
-      echo "$PROMPTS_DIR/session1.md"
-      ;;
-    2)
-      echo "$PROMPTS_DIR/session2-${condition}.md"
-      ;;
-    3)
-      echo "$PROMPTS_DIR/session3-${condition}.md"
-      ;;
-  esac
-}
-
-select_memory_write_prompt() {
-  local session="$1"
-  local condition="$2"
-
-  case "$condition" in
-    stompy)
-      if [ "$session" -le 2 ]; then
-        echo "$PROMPTS_DIR/stompy-store-s${session}.md"
-      fi
-      ;;
-    file)
-      if [ "$session" -le 2 ]; then
-        echo "$PROMPTS_DIR/memory-prompt-s${session}.md"
-      fi
-      ;;
-    nomemory)
-      # No memory write for nomemory condition
-      echo ""
-      ;;
-  esac
-}
-
-PROMPT_FILE=$(select_prompt "$SESSION" "$CONDITION")
-MEMORY_PROMPT_FILE=$(select_memory_write_prompt "$SESSION" "$CONDITION")
+PROMPT_FILE="$PROMPTS_DIR/task${TASK_NUM}-${CONDITION}.md"
 
 if [ ! -f "$PROMPT_FILE" ]; then
   echo "Error: Prompt file not found: $PROMPT_FILE"
   exit 1
 fi
 
-# ─── Prepare run directory ──────────────────────────────────────────
+# ─── Banner ────────────────────────────────────────────────────────
 
 echo "═══════════════════════════════════════════════════════════════════"
-echo "  STOMPY BENCHMARK — Session Runner"
+echo "  STOMPY BENCHMARK — Phase 2 Session Runner"
 echo "═══════════════════════════════════════════════════════════════════"
 echo "  Model:     $MODEL"
 echo "  Condition: $CONDITION"
-echo "  Session:   $SESSION"
+echo "  Task:      $TASK_NUM ($TASK_NAME)"
 echo "  Prompt:    $PROMPT_FILE"
 echo "  Max turns: $MAX_TURNS"
 echo "  Budget:    \$$MAX_BUDGET"
 echo "  Timeout:   ${TIMEOUT}s"
-[ -n "$MEMORY_PROMPT_FILE" ] && echo "  Memory:    $MEMORY_PROMPT_FILE"
 echo "═══════════════════════════════════════════════════════════════════"
 
-# Clone/prepare the run directory
-bash "$CONFIGS_DIR/clone-for-run.sh" "$MODEL" "$CONDITION" "$SESSION"
+# ─── Prepare run directory (fresh snapshot per run) ────────────────
 
-# ─── Dry run check ──────────────────────────────────────────────────
+bash "$CONFIGS_DIR/phase2/clone-for-run.sh" "$MODEL" "$CONDITION" "$TASK_NUM"
+
+# ─── Dry run check ────────────────────────────────────────────────
 
 if [ "$DRY_RUN" = "--dry-run" ]; then
   echo ""
@@ -137,19 +123,19 @@ if [ "$DRY_RUN" = "--dry-run" ]; then
   echo "    --no-session-persistence \\"
   echo "    --permission-mode bypassPermissions"
   echo ""
-  echo "  Output → $RESULTS_DIR/session-${SESSION}-result.json"
-  if [ -n "$MEMORY_PROMPT_FILE" ]; then
-    echo "  Memory → $RESULTS_DIR/session-${SESSION}-memory-write.json"
-  fi
-  echo "  Scores → $RESULTS_DIR/session-${SESSION}-scores.json"
+  echo "  Output → $RESULTS_DIR/task${TASK_NUM}-result.json"
+  echo "  Scores → $RESULTS_DIR/task${TASK_NUM}-scores.json"
   echo ""
   echo "Neutrality checks:"
   echo "  ✓ --no-session-persistence prevents session bleed"
-  echo "  ✓ --allowedTools identical across conditions: $ALLOWED_TOOLS"
   echo "  ✓ --max-turns=$MAX_TURNS, --max-budget-usd=$MAX_BUDGET"
+  echo "  ✓ Fresh snapshot copy for this run"
   [ "$CONDITION" = "stompy" ] && echo "  ✓ .mcp.json present for Stompy MCP access"
   [ "$CONDITION" != "stompy" ] && echo "  ✓ No .mcp.json — Stompy MCP NOT available"
-  echo "  ✓ Memory write is separate invocation (not --continue)"
+  [ "$CONDITION" = "file" ] && echo "  ✓ MEMORY.md + TASKS.md injected"
+  [ "$CONDITION" != "file" ] && echo "  ✓ No MEMORY.md/TASKS.md"
+  echo "  ✓ No memory write phase (memory is pre-loaded)"
+  echo "  ✓ No .git directory in run dir"
   exit 0
 fi
 
@@ -159,12 +145,11 @@ fi
 unset CLAUDECODE 2>/dev/null || true
 
 echo ""
-echo "▶ Running implementation session $SESSION..."
+echo "▶ Running task $TASK_NUM ($TASK_NAME)..."
 START_TIME=$(date +%s)
 
 PROMPT_CONTENT=$(cat "$PROMPT_FILE")
-
-RESULT_FILE="$RESULTS_DIR/session-${SESSION}-result.json"
+RESULT_FILE="$RESULTS_DIR/task${TASK_NUM}-result.json"
 
 # Run Claude Code headless — capture JSON output
 cd "$RUN_DIR"
@@ -175,7 +160,7 @@ timeout "$TIMEOUT" claude -p "$PROMPT_CONTENT" \
   --max-budget-usd "$MAX_BUDGET" \
   --no-session-persistence \
   --permission-mode bypassPermissions \
-  > "$RESULT_FILE" 2>"$RESULTS_DIR/session-${SESSION}-stderr.log" || {
+  > "$RESULT_FILE" 2>"$RESULTS_DIR/task${TASK_NUM}-stderr.log" || {
     EXIT_CODE=$?
     echo "⚠ Claude Code exited with code $EXIT_CODE"
     # Still continue to scoring — partial results are valuable
@@ -187,7 +172,7 @@ WALL_CLOCK=$((END_TIME - START_TIME))
 echo "  Duration: ${WALL_CLOCK}s"
 echo "  Output:   $RESULT_FILE"
 
-# Inject wall_clock_seconds from our timer into the result
+# Inject wall_clock_seconds and phase metadata into the result
 if [ -f "$RESULT_FILE" ] && command -v python3 &>/dev/null; then
   python3 -c "
 import json, sys
@@ -195,6 +180,9 @@ try:
     with open('$RESULT_FILE', 'r') as f:
         data = json.load(f)
     data['benchmark_wall_clock_seconds'] = $WALL_CLOCK
+    data['benchmark_phase'] = 2
+    data['benchmark_task_num'] = $TASK_NUM
+    data['benchmark_task_name'] = '$TASK_NAME'
     with open('$RESULT_FILE', 'w') as f:
         json.dump(data, f, indent=2)
 except:
@@ -202,64 +190,38 @@ except:
 "
 fi
 
-# ─── Memory write phase (separate invocation) ──────────────────────
-
-if [ -n "$MEMORY_PROMPT_FILE" ] && [ -f "$MEMORY_PROMPT_FILE" ]; then
-  echo ""
-  echo "▶ Running memory write (separate invocation)..."
-
-  MEMORY_CONTENT=$(cat "$MEMORY_PROMPT_FILE")
-  MEMORY_RESULT="$RESULTS_DIR/session-${SESSION}-memory-write.json"
-
-  cd "$RUN_DIR"
-  timeout "$TIMEOUT" claude -p "$MEMORY_CONTENT" \
-    --model "$MODEL" \
-    --output-format json \
-    --max-turns 50 \
-    --max-budget-usd 3 \
-    --no-session-persistence \
-    --permission-mode bypassPermissions \
-    > "$MEMORY_RESULT" 2>"$RESULTS_DIR/session-${SESSION}-memory-stderr.log" || {
-      echo "⚠ Memory write exited with non-zero code"
-    }
-
-  echo "  Output: $MEMORY_RESULT"
-fi
-
 # ─── Scoring ────────────────────────────────────────────────────────
 
 echo ""
 echo "▶ Running scoring..."
 
-SCORES_FILE="$RESULTS_DIR/session-${SESSION}-scores.json"
+SCORES_FILE="$RESULTS_DIR/task${TASK_NUM}-scores.json"
+SCORE_SCRIPT="$SCORING_DIR/score-task${TASK_NUM}.sh"
 
-# Run all 3 scoring scripts and merge results
-FUNC_SCORE=$("$SCORING_DIR/score.sh" "$RUN_DIR" 2>/dev/null || echo '{"score":0,"max":25,"checks":[]}')
-CONSISTENCY_SCORE=$("$SCORING_DIR/score-consistency.sh" "$RUN_DIR" 2>/dev/null || echo '{"score":0,"max":6,"checks":[]}')
-CURVEBALL_SCORE=$("$SCORING_DIR/score-curveball-quality.sh" "$RUN_DIR" 2>/dev/null || echo '{"score":0,"max":6,"checks":[]}')
+if [ ! -f "$SCORE_SCRIPT" ]; then
+  echo "Error: Scoring script not found: $SCORE_SCRIPT"
+  exit 1
+fi
 
-# Merge scores into one JSON
+TASK_SCORE=$("$SCORE_SCRIPT" "$RUN_DIR" 2>/dev/null || echo '{"score":0,"max":25,"checks":[]}')
+
+# Wrap score with metadata
 python3 -c "
 import json
-func = json.loads('''$FUNC_SCORE''')
-consistency = json.loads('''$CONSISTENCY_SCORE''')
-curveball = json.loads('''$CURVEBALL_SCORE''')
-
-total_score = func['score'] + consistency['score'] + curveball['score']
-total_max = func['max'] + consistency['max'] + curveball['max']
+task_score = json.loads('''$TASK_SCORE''')
 
 result = {
     'model': '$MODEL',
     'condition': '$CONDITION',
-    'session': $SESSION,
+    'phase': 2,
+    'task_num': $TASK_NUM,
+    'task_name': '$TASK_NAME',
     'wall_clock_seconds': $WALL_CLOCK,
-    'total_score': total_score,
-    'total_max': total_max,
-    'score_pct': round(total_score / total_max * 100, 2) if total_max > 0 else 0,
-    'points_per_minute': round(total_score / ($WALL_CLOCK / 60), 4) if $WALL_CLOCK > 0 else 0,
-    'functional': func,
-    'consistency': consistency,
-    'curveball': curveball,
+    'total_score': task_score['score'],
+    'total_max': task_score['max'],
+    'score_pct': round(task_score['score'] / task_score['max'] * 100, 2) if task_score['max'] > 0 else 0,
+    'points_per_minute': round(task_score['score'] / ($WALL_CLOCK / 60), 4) if $WALL_CLOCK > 0 else 0,
+    'task_scoring': task_score,
 }
 
 print(json.dumps(result, indent=2))
@@ -271,7 +233,7 @@ echo "  Scores: $SCORES_FILE"
 
 echo ""
 echo "═══════════════════════════════════════════════════════════════════"
-echo "  Session $SESSION complete"
+echo "  Task $TASK_NUM ($TASK_NAME) complete"
 if [ -f "$SCORES_FILE" ]; then
   python3 -c "
 import json
