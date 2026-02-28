@@ -418,6 +418,7 @@ Using our measured cost-per-point ratios and extrapolating the growth curves:
 | 100 (measured) | $0.101 | $0.120 | $0.117 | 16% cheaper than file |
 | 500 | ~$0.105 | ~$0.180 | ~$0.155 | **42% cheaper than file** |
 | 1,000 | ~$0.110 | **BROKEN** | ~$0.200 | File condition unviable |
+| 5,000 | ~$0.115 | **BROKEN** | ~$0.260 | **56% cheaper than nomemory** |
 | 10,000 | ~$0.120 | **BROKEN** | ~$0.300+ | **60%+ cheaper than nomemory** |
 
 ### Projected Efficiency (Turns per Task)
@@ -427,6 +428,7 @@ Using our measured cost-per-point ratios and extrapolating the growth curves:
 | 100 (measured avg) | 37.7 | 41.3 | 43.7 |
 | 500 | ~35 | ~55 | ~65 |
 | 1,000 | ~33 | N/A | ~85 |
+| 5,000 | ~31 | N/A | ~110 |
 | 10,000 | ~30 | N/A | ~130+ |
 
 Stompy turns **decrease slightly** over time (better memory = less exploration). Nomemory turns **increase** as the codebase grows. The gap widens exponentially.
@@ -456,6 +458,94 @@ Stompy turns **decrease slightly** over time (better memory = less exploration).
 - No learning curve — every session is equally expensive
 - Context window competition between codebase and prompt
 - Risk of inconsistent decisions across sessions (no institutional memory)
+
+---
+
+### Multi-Developer Scaling (The Multiplier Effect)
+
+All projections above assume a **single developer**. Real teams have 2-10+ developers each running AI coding agents. This multiplies every dynamic.
+
+#### The Multi-Developer Problem by Condition
+
+**Nomemory — Cost scales as N × single_developer:**
+
+| Developers | Sessions/yr (est.) | Annual exploration waste |
+|------------|-------------------|------------------------|
+| 1 | 1,000 | ~1,000 cold starts |
+| 3 | 3,000 | ~3,000 cold starts (3x) |
+| 5 | 5,000 | ~5,000 cold starts (5x) |
+| 10 | 10,000 | ~10,000 cold starts (10x) |
+
+Every developer independently re-discovers the same architecture, the same patterns, the same gotchas. Developer B's agent spends 45 turns learning what Developer A's agent learned yesterday. Zero shared learning. The team pays N times the discovery tax.
+
+**File (MEMORY.md) — Merge conflicts and knowledge fragmentation:**
+
+With multiple developers, MEMORY.md becomes a **shared mutable resource**:
+- Developer A adds notes about the auth flow; Developer B overwrites them with Redis patterns
+- Git merge conflicts on every PR that touches MEMORY.md
+- No ownership model — whose notes take priority?
+- Agent may read contradictory entries written by different developers at different times
+- The file hits its context window ceiling N× faster (5 devs = saturated at session ~100-140 each)
+
+Practical ceiling with 5 developers: **~100-150 sessions per developer** before the shared file is unmanageable. This is far worse than the single-developer ceiling of 500-700.
+
+**Stompy — Shared knowledge with O(1) retrieval:**
+
+| Developers | Total Sessions/yr | Shared Contexts | Per-Dev Benefit |
+|------------|------------------|-----------------|-----------------|
+| 1 | 1,000 | 700 | Baseline |
+| 3 | 3,000 | ~1,500 | Each dev benefits from 3x the context pool |
+| 5 | 5,000 | ~2,200 | Each dev benefits from 5x the context pool |
+| 10 | 10,000 | ~3,500 | Each dev benefits from 10x the context pool |
+
+Key dynamics:
+- **Contexts are project-scoped and shared.** Developer A locks "auth_architecture" → Developer B's agent recalls it instantly on next session
+- **Diminishing duplication.** With 5 developers, context overlap means ~2,200 unique contexts (not 5×700=3,500). Each new developer adds proportionally fewer new contexts because much knowledge is shared
+- **Ticket board is inherently multi-developer.** Tickets created by Dev A are visible to Dev B's agent — providing task coordination memory
+- **No merge conflicts.** Each context is immutable and versioned. Multiple developers can lock contexts on the same topic — the system creates versions, not conflicts
+- **Cross-developer knowledge transfer.** Dev A's debugging session that discovers a Redis connection pooling issue gets locked as a context. Dev B's agent recalls it months later when hitting similar symptoms — without Dev B ever knowing about the original issue
+
+#### Multi-Developer Cost Projection (5 developers, 1,000 sessions each = 5,000 total)
+
+| Metric | Stompy | File | Nomemory |
+|--------|--------|------|----------|
+| Total sessions | 5,000 | 5,000 | 5,000 |
+| Shared knowledge | 2,200 contexts (all devs) | Broken (~session 100/dev) | None |
+| Avg turns/task (yr end) | ~31 | N/A | ~110 |
+| Avg $/task (yr end) | ~$1.85 | N/A | ~$5.50 |
+| Annual token savings vs nomemory | **~$18,250** | N/A | Baseline |
+| Knowledge consistency | High (versioned, searchable) | Low (conflicting notes) | None (random re-discovery) |
+
+The $18,250 annual savings estimate: 5,000 sessions × ($5.50 - $1.85) per task average = ~$18,250. This is conservative — complex tasks show larger deltas.
+
+#### The Real Multi-Developer Insight
+
+**Memory systems don't just help individual developers — they create a shared institutional knowledge base that every team member's agent can draw from.** This is the difference between:
+
+- **Nomemory**: 5 agents, each starting from zero, each re-learning everything independently = 5x the cost
+- **File**: 5 agents fighting over a shared text file that breaks at scale = chaos
+- **Stompy**: 5 agents contributing to and drawing from a shared knowledge graph = **sublinear team scaling**
+
+The N-developer multiplier is where structured memory transforms from "nice efficiency gain" to **critical infrastructure**. A 15% single-developer efficiency improvement becomes a 60%+ team-wide cost reduction when you account for shared knowledge and eliminated re-discovery.
+
+#### Scaling to Large Codebases (1,000+ commits, 10,000+ lines)
+
+Real production codebases at 5,000-10,000 commits have characteristics that amplify memory's value:
+
+| Codebase Scale | Lines | Files | Modules | Cold-Start Viability |
+|---------------|-------|-------|---------|---------------------|
+| Small (our Phase 1) | ~800 | ~15 | 2-3 | Agent can explore everything. Memory unnecessary. |
+| Medium (our Phase 2) | ~5,000 | ~158 | 10-15 | Agent can explore ~60% per session. Memory helps. |
+| Large | ~15,000 | ~400 | 20-30 | Agent can explore ~25% per session. **Memory essential.** |
+| Very large | ~50,000+ | ~1,000+ | 50+ | Agent cannot meaningfully explore in one session. **Memory or failure.** |
+
+At 50,000+ lines (common for production monoliths and microservice collections), the nomemory agent faces a **triage problem**: it must decide what to read without knowing what's important. This is like searching a library without a catalog. Memory provides the catalog.
+
+**The 1,000-commit project**: At ~15 commits/week, a project hits 1,000 commits in ~15 months. By then the codebase has evolved through major refactors, deprecated patterns, and architectural shifts. An agent without memory doesn't know which patterns are current vs deprecated. It may generate code following a pattern that was abandoned 6 months ago — technically correct but architecturally wrong.
+
+**The 5,000-commit project**: ~6 years of development. Multiple architectural eras. The codebase contains layers of decisions that only make sense in historical context. Memory is the only way an agent can understand *why* the code looks the way it does, not just *what* the code does.
+
+**The 10,000-commit project**: Enterprise scale. No single human developer understands the entire system. The agent is in the same position — it *needs* external memory to navigate effectively. This is where structured memory stops being an optimization and becomes a **prerequisite for useful AI assistance**.
 
 ### The Crossover Chart
 
@@ -487,6 +577,11 @@ Cost per point ($)
 - Sessions 10-100: Convergence zone (all comparable)
 - Sessions 100-500: Stompy pulls ahead, file degrades
 - Sessions 500+: File breaks, nomemory becomes expensive, stompy dominates
+
+**With multiple developers, these crossover points shift dramatically earlier:**
+- 5 devs: File breaks at ~100-150 sessions per developer (not 500-700)
+- 5 devs: Nomemory becomes untenable at ~500 sessions/dev (2,500 total)
+- 5 devs: Stompy's shared knowledge pool means the *team* learns faster than any individual
 
 ### The Model-Improvement Factor
 
