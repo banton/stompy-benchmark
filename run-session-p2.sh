@@ -76,7 +76,32 @@ case "$CONDITION" in
     ;;
 esac
 
-if [[ "$CONDITION" == stompy* ]] && [ -z "${DEMENTIA_API_KEY:-}" ]; then
+# For stompy-staging, extract Bearer token from ~/.claude/.mcp.json at runtime
+if [ "$CONDITION" = "stompy-staging" ]; then
+  MCP_CONFIG="$HOME/.claude/.mcp.json"
+  if [ ! -f "$MCP_CONFIG" ]; then
+    echo "Error: ~/.claude/.mcp.json not found (needed for staging Bearer token)"
+    exit 1
+  fi
+  STAGING_TOKEN=$(python3 -c "
+import json
+with open('$MCP_CONFIG') as f:
+    cfg = json.load(f)
+# Try stompy-nightly first, then stompy-staging
+for name in ['stompy-nightly', 'stompy-staging']:
+    srv = cfg.get('mcpServers', {}).get(name, {})
+    auth = srv.get('headers', {}).get('Authorization', '')
+    if auth.startswith('Bearer '):
+        print(auth.split('Bearer ')[1])
+        break
+" 2>/dev/null)
+  if [ -z "$STAGING_TOKEN" ]; then
+    echo "Error: Could not extract staging Bearer token from ~/.claude/.mcp.json"
+    exit 1
+  fi
+  export DEMENTIA_API_KEY="$STAGING_TOKEN"
+  echo "  Auth: Bearer token extracted from ~/.claude/.mcp.json (stompy-nightly)"
+elif [[ "$CONDITION" == stompy* ]] && [ -z "${DEMENTIA_API_KEY:-}" ]; then
   echo "Error: DEMENTIA_API_KEY required for stompy conditions"
   echo "  source ~/Sites/stompy/dementia-production/.env"
   exit 1

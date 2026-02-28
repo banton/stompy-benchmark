@@ -549,32 +549,34 @@ Based on 18 controlled benchmark runs:
 
 We ran Task 3 (rate limiting — the most complex scenario) against Stompy Staging with **TOON (Terse Object-Oriented Notation)** enabled, comparing directly against the JSON-format Stompy run.
 
+**Note**: An initial run produced misleading results due to an auth failure (401s from staging). The agent completed the task without memory access, effectively running as nomemory. The results below are from the corrected re-run with verified auth.
+
 ### Head-to-Head Results
 
 | Metric | Stompy (JSON) | Stompy (TOON) | Delta |
 |--------|--------------|---------------|-------|
 | Score | 23/25 (92%) | **24/25 (96%)** | +1 pt (+4%) |
-| Time | **207s** | 335s | +62% slower |
-| Total Cost | **$1.79** | $2.91 | +63% more |
-| Turns | 37 | 36 | ~same |
-| Pts/min | **6.67** | 4.30 | -36% |
+| Time | **207s** | 301s | +45% slower |
+| Total Cost | **$1.79** | $2.28 | +27% more |
+| Turns | 37 | 46 | +24% more |
+| Pts/min | **6.67** | 4.78 | -28% |
 
 ### Token Breakdown (Opus — primary model)
 
 | Metric | JSON | TOON | Delta |
 |--------|------|------|-------|
-| Cache read | 1,899,876 | 1,852,501 | -2.5% (modest win) |
-| Cache write | 70,451 | 175,988 | +150% (more context cached) |
-| Output | 12,920 | 15,317 | +19% (more output generated) |
-| Opus cost | $1.72 | $2.41 | +40% |
+| Cache read | 1,899,876 | 2,240,746 | +18% (more context loaded) |
+| Cache write | 70,451 | 83,345 | +18% |
+| Output | 12,920 | 18,737 | +45% (more code generated) |
+| Opus cost | $1.72 | $2.11 | +23% |
 
 ### Token Breakdown (Haiku — subcalls)
 
 | Metric | JSON | TOON | Delta |
 |--------|------|------|-------|
-| Cache read | 568,925 | 2,724,069 | **+379%** |
-| Cache write | 37,682 | 141,398 | +275% |
-| Haiku cost | $0.074 | $0.502 | **+578%** |
+| Cache read | 568,925 | 95,912 | **-83%** (major reduction) |
+| Cache write | 37,682 | 122,709 | +226% (more initial caching) |
+| Haiku cost | $0.074 | $0.174 | +135% |
 
 ### Scoring Differences
 
@@ -584,15 +586,15 @@ Both runs failed only "tests tier transitions." TOON passed "config externalized
 
 **Quality**: TOON scored marginally higher (96% vs 92%), but this is within noise — one extra check passed, likely due to natural variance in code generation rather than TOON-specific benefit.
 
-**The Haiku Surprise**: The 7x increase in Haiku subcall cost ($0.074 → $0.502) was unexpected. TOON contexts appear to trigger significantly more/larger Haiku summarization passes within Claude Code's internal pipeline. Haiku cache reads jumped from 569K to 2.7M tokens — suggesting TOON payloads may actually be *larger* than JSON despite the "Terse" name, or the format triggers more aggressive sub-agent processing.
+**Haiku Efficiency Win**: TOON reduced Haiku cache reads by 83% (569K → 96K). This suggests TOON's compact format requires less Haiku summarization. However, Haiku cache *writes* tripled (38K → 123K), indicating more upfront caching of TOON-formatted responses. Net Haiku cost still increased 135% due to the write-heavy pattern.
 
-**Opus Cache Reads**: A modest 2.5% reduction in Opus cache reads (1.9M → 1.85M) — directionally correct but overwhelmed by the Haiku cost explosion.
+**Opus Cost Increase**: Opus cache reads increased 18% and output tokens jumped 45%. The agent took 46 turns vs 37 — generating more code despite having memory. This may reflect TOON contexts being richer/more detailed, leading the agent to attempt more comprehensive implementations (28 tests vs the JSON run's approach).
 
-**Net Assessment**: TOON v1 on staging is not yet a cost win. The format change needs optimization to reduce Haiku subcall overhead before it can deliver on the promise of token-efficient context retrieval. The quality improvement is statistically insignificant at N=1.
+**Net Assessment**: TOON v1 shows mixed results. The 83% reduction in Haiku cache reads is promising — the format genuinely reduces summarization overhead. But the agent used more Opus tokens overall (+18% cache reads, +45% output), resulting in a 27% higher total cost. The format may be providing *more* context than JSON (not less), which helps quality marginally but increases cost.
 
-### Implications for Projections
+### Implications
 
-At 10,000 sessions, TOON in its current form would *increase* cumulative cost vs JSON Stompy. The format needs to reduce Haiku summarization triggers (or bypass them) to achieve the expected savings. This is a staging/v1 result — production TOON may behave differently after optimization.
+TOON's value proposition may not be "cheaper per recall" but rather "richer context per recall." The 83% Haiku cache read reduction suggests the format is more LLM-friendly (less need for re-summarization), even though total token usage increased. At scale, the optimization target should be: reduce Opus cache reads per recall to match or beat JSON, while preserving the Haiku efficiency gain.
 
 ---
 
