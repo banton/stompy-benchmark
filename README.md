@@ -150,4 +150,4 @@ Learned through three iterations of Phase 3:
 
 ## License
 
-Private. Contact [@banton](https://github.com/banton) for access or collaboration.
+MIT — see [LICENSE](LICENSE).
