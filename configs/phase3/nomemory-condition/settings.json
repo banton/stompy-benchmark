@@ -1,0 +1,6 @@
+{
+  "permissions": {
+    "allow": ["Read", "Write", "Edit", "Bash", "Glob", "Grep", "ExitPlanMode", "EnterPlanMode", "NotebookEdit", "Task", "TeamCreate", "TeamDelete", "TaskCreate", "TaskUpdate", "TaskList", "TaskGet", "SendMessage"],
+    "deny": []
+  }
+}
