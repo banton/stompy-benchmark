@@ -223,7 +223,7 @@
       "duration_ms": 229067,
       "num_turns": 41,
       "session_id": "1fc03b18-7ee0-45b2-8da5-0561c573f8c2",
-      "score_file": "/Users/banton/Sites/stompy/stompy-benchmark/runs/claude-opus-4-6-file/session-1-scores.json"
+      "score_file": "runs/claude-opus-4-6-file/session-1-scores.json"
     },
     {
       "model": "claude-opus-4-6",
@@ -443,7 +443,7 @@
       "duration_ms": 373711,
       "num_turns": 50,
       "session_id": "03186b63-b0bd-4430-b5fd-2257087cdefd",
-      "score_file": "/Users/banton/Sites/stompy/stompy-benchmark/runs/claude-opus-4-6-file/session-2-scores.json"
+      "score_file": "runs/claude-opus-4-6-file/session-2-scores.json"
     },
     {
       "model": "claude-opus-4-6",
@@ -663,7 +663,7 @@
       "duration_ms": 338281,
       "num_turns": 59,
       "session_id": "d4fea2f2-a7ce-4838-9a54-e55771461391",
-      "score_file": "/Users/banton/Sites/stompy/stompy-benchmark/runs/claude-opus-4-6-file/session-3-scores.json"
+      "score_file": "runs/claude-opus-4-6-file/session-3-scores.json"
     },
     {
       "model": "claude-opus-4-6",
@@ -883,7 +883,7 @@
       "duration_ms": 239803,
       "num_turns": 36,
       "session_id": "8a01302a-0ce1-435b-b209-87bccf1e18f0",
-      "score_file": "/Users/banton/Sites/stompy/stompy-benchmark/runs/claude-opus-4-6-nomemory/session-1-scores.json"
+      "score_file": "runs/claude-opus-4-6-nomemory/session-1-scores.json"
     },
     {
       "model": "claude-opus-4-6",
@@ -1103,7 +1103,7 @@
       "duration_ms": 294263,
       "num_turns": 49,
       "session_id": "c8e142eb-768f-4b7d-b8b8-6aba519aeab3",
-      "score_file": "/Users/banton/Sites/stompy/stompy-benchmark/runs/claude-opus-4-6-nomemory/session-2-scores.json"
+      "score_file": "runs/claude-opus-4-6-nomemory/session-2-scores.json"
     },
     {
       "model": "claude-opus-4-6",
@@ -1323,7 +1323,7 @@
       "duration_ms": 254158,
       "num_turns": 53,
       "session_id": "6792d385-e6ae-4246-91a2-3dd6c6cc55e1",
-      "score_file": "/Users/banton/Sites/stompy/stompy-benchmark/runs/claude-opus-4-6-nomemory/session-3-scores.json"
+      "score_file": "runs/claude-opus-4-6-nomemory/session-3-scores.json"
     },
     {
       "model": "claude-opus-4-6",
@@ -1543,7 +1543,7 @@
       "duration_ms": 240193,
       "num_turns": 37,
       "session_id": "cb17dab1-d652-4562-ae8f-f187b2588a1d",
-      "score_file": "/Users/banton/Sites/stompy/stompy-benchmark/runs/claude-opus-4-6-stompy/session-1-scores.json"
+      "score_file": "runs/claude-opus-4-6-stompy/session-1-scores.json"
     },
     {
       "model": "claude-opus-4-6",
@@ -1763,7 +1763,7 @@
       "duration_ms": 532078,
       "num_turns": 76,
       "session_id": "9e595caa-2174-4580-9108-556cf3c875fa",
-      "score_file": "/Users/banton/Sites/stompy/stompy-benchmark/runs/claude-opus-4-6-stompy/session-2-scores.json"
+      "score_file": "runs/claude-opus-4-6-stompy/session-2-scores.json"
     },
     {
       "model": "claude-opus-4-6",
@@ -1983,7 +1983,7 @@
       "duration_ms": 310286,
       "num_turns": 53,
       "session_id": "62a93329-65be-474a-86c7-48b9f280139c",
-      "score_file": "/Users/banton/Sites/stompy/stompy-benchmark/runs/claude-opus-4-6-stompy/session-3-scores.json"
+      "score_file": "runs/claude-opus-4-6-stompy/session-3-scores.json"
     }
   ],
   "effectiveness_by_condition": {
